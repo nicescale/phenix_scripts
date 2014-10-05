@@ -39,10 +39,50 @@ DIST=`distrib_id`
 case $DIST in
   Ubuntu|Debian)
     apt-get update
-    apt-get -y install apache2 mysql-server php5
+    DEBIAN_FRONTEND-noninteractive apt-get -y install apache2 mysql-server php5 php5-imagick \
+            php5-gd php5-json php5-memcached php5-cli php5-curl php5-mysql
+    mysql_install_db
+    update-rc.d mysql defaults
+    update-rc.d apache2 defaults
+    service apache2 start
+    service mysql start
+    cat <<EOF > /var/www/html/info.php
+<?php
+phpinfo();
+?>
+EOF
+    
   ;;
   Fedora|CentOS)
-    yum -y install apache2 mysql-server php5
+    if [ $release -eq '7' ] || $DIST -eq "Fedora"; then
+      yum -y install httpd mariadb-server mariadb php php-mysql php-pecl-memcache \
+             php-pear-Net-Socket php-gd php-cli php-mbstring  php-mcrypt php-mhash
+      mysql_install_db
+      systemctl enable httpd.service
+      systemctl start httpd.service
+      systemctl enable mariadb.service
+      systemctl start mariadb.service
+    else
+      yum -y install httpd mysql-server php php-mysql php-pecl-memcache \
+             php-pear-Net-Socket php-gd php-cli php-mbstring  php-mcrypt php-mhash
+      mysql_install_db
+      chkconfig mysqld on
+      service mysqld start
+    fi
+    cat <<EOF > /var/www/html/info.php
+<?php
+phpinfo();
+?>
+EOF
+    echo "> pecl install module "
+    echo "> run curl http://127.0.0.1/info.php"
+  ;;
+  Archlinux)
+    pacman -Syu
+    pacman -Sy apache percona-server php php-apache
+    set -i -e 's/LoadModule unique_id_module.*/#LoadModule unique_id_module modules/mod_unique_id.so/' /etc/httpd/conf/httpd.conf
+
+    echo '<?php phpinfo(); ?>' > /srv/http/info.php
   ;;
   *)
     echo not supported yet
