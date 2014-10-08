@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+
 import os
 import time
 import subprocess
@@ -76,13 +77,11 @@ def disk_usage():
 def disk_stats(sample_duration=2):
     """Return (inbytes, outbytes, in_num, out_num, ioms) of disk."""
     with open('/proc/diskstats') as f1:
-      with open('/proc/diskstats') as f2:
-          content1 = f1.read()
-          time.sleep(sample_duration)
-          content2 = f2.read()
-    ds1 = {}
-    ds2 = {}
-    ds = {}
+        with open('/proc/diskstats') as f2:
+            content1 = f1.read()
+            time.sleep(sample_duration)
+            content2 = f2.read()
+    ds = ds1 = ds2 = {}
     for l in content1.splitlines():
         if 'loop' in l:
             continue
