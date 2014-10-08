@@ -35,47 +35,62 @@ function distrib_id() {
   fi
 }
 
+function get_release() {
+  [ -x /usr/bin/lsb_release ] && VERSION=$(lsb_release -r -s)
+  [ -z "$VERSION" ] && VERSION=$(awk '/DISTRIB_RELEASE=/' /etc/*-release | sed 's/DISTRIB_RELEASE=//')
+  [ -z "$VERSION" ] && VERSION=$(awk '/VERSION_ID=/' /etc/*-release | sed 's/VERSION_ID=//')
+  [ -z "$VERSION" ] && VERSION=$(cat /etc/*-release|rev|cut -f1 -d ' '|rev|grep -P '^\d')
+  if echo $VERSION|grep -q -P '"\d"'; then
+    echo $VERSION|tr -d '"'
+  else
+    echo $VERSION
+  fi
+}
+
 DIST=`distrib_id`
+RELEASE=`get_release`
+
 case $DIST in
   Ubuntu|Debian)
     apt-get update
     DEBIAN_FRONTEND-noninteractive apt-get -y install apache2 mysql-server php5 php5-imagick \
             php5-gd php5-json php5-memcached php5-cli php5-curl php5-mysql
-    mysql_install_db
     update-rc.d mysql defaults
     update-rc.d apache2 defaults
+    mysql_install_db
     service apache2 start
     service mysql start
-    cat <<EOF > /var/www/html/info.php
-<?php
-phpinfo();
-?>
-EOF
-    
+    echo "<?php phpinfo(); ?>" > /var/www/html/info.php
   ;;
-  Fedora|CentOS)
-    if [ $release -eq '7' ] || $DIST -eq "Fedora"; then
+  Fedora)
+    yum -y install httpd mariadb-server mariadb php php-mysql php-pecl-memcache \
+           php-pear-Net-Socket php-gd php-cli php-mbstring  php-mcrypt php-mhash
+    mysql_install_db
+    systemctl enable httpd.service
+    systemctl enable mariadb.service
+    systemctl start httpd.service
+    systemctl start mariadb.service
+    echo "<?php phpinfo(); ?>" > /var/www/html/info.php
+  ;;
+  CentOS|RHEL)
+    if echo $release|grep -qP '^7'; then
       yum -y install httpd mariadb-server mariadb php php-mysql php-pecl-memcache \
              php-pear-Net-Socket php-gd php-cli php-mbstring  php-mcrypt php-mhash
       mysql_install_db
       systemctl enable httpd.service
-      systemctl start httpd.service
       systemctl enable mariadb.service
+      systemctl start httpd.service
       systemctl start mariadb.service
     else
       yum -y install httpd mysql-server php php-mysql php-pecl-memcache \
              php-pear-Net-Socket php-gd php-cli php-mbstring  php-mcrypt php-mhash
-      mysql_install_db
+      chkconfig httpd on
       chkconfig mysqld on
+      mysql_install_db
+      service httpd start
       service mysqld start
     fi
-    cat <<EOF > /var/www/html/info.php
-<?php
-phpinfo();
-?>
-EOF
-    echo "> pecl install module "
-    echo "> run curl http://127.0.0.1/info.php"
+    echo "<?php phpinfo(); ?>" > /var/www/html/info.php
   ;;
   Archlinux)
     pacman -Syu
