@@ -72,7 +72,7 @@ case $DIST in
     systemctl start mariadb.service
     echo "<?php phpinfo(); ?>" > /var/www/html/info.php
   ;;
-  CentOS|RHEL)
+  CentOS|RHEL|SLES)
     if echo $release|grep -qP '^7'; then
       yum -y install httpd mariadb-server mariadb php php-mysql php-pecl-memcache \
              php-pear-Net-Socket php-gd php-cli php-mbstring  php-mcrypt php-mhash

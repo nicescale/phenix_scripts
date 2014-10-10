@@ -1,4 +1,6 @@
 phenix_scripts
 ==============
 
-public library
+public library for nicescale phenix project
+
+
