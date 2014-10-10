@@ -1,3 +1,3 @@
 #!/bin/sh
 
-curl -sSL http://git.docker.io/|sh
+curl -sSL http://get.docker.io/|sh
