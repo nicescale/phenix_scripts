@@ -73,9 +73,18 @@ def disk_usage():
     df = {}
     output = Popen(['df', '-l', '-m', '-x', 'proc', '-x', 'tmpfs', '-x', 'devtmpfs', \
              '-x', 'ecryptfs'], stdout=PIPE, universal_newlines=True).communicate()[0]
-    for l in output.splitlines()[1:]:
-        d = l.split()
-        df[d[0]] = d[1:] # size, used, free, percent, mountpoint
+
+    lines = output.splitlines()[1:]
+    count = 0
+    while ( count < len(lines) ):
+        d = lines[count].split()
+        if len(d) == 1:
+            count = count + 1
+            d = d + lines[count].split()
+
+        df[d[0]] = d[1:]
+
+        count = count + 1
 
     return df
 
