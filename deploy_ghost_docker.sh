@@ -5,7 +5,8 @@ docker pull smalldocker/ghost:latest
 mkdir -p $HOME/ghost/content/{data,images,themes}
 
 tmp_name=ghost_${RANDOM}
-docker run --rm --name $tmp_name smalldocker/ghost sleep 10
+
+docker run --rm --name $tmp_name smalldocker/ghost sleep 10 &
 
 sleep 2
 
