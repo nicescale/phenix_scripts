@@ -11,27 +11,30 @@ from subprocess import Popen, PIPE
 
 
 def file_desc():
-    with open('/proc/sys/fs/file-nr') as f:
-        line = f.readline()
+    f = open('/proc/sys/fs/file-nr')
+    line = f.readline()
     
     fd = [int(x) for x in line.split()]
     
     return fd
 
 def load_avg():
-    with open('/proc/loadavg') as f:
-        line = f.readline()
+    f = open('/proc/loadavg')
+    line = f.readline()
+    f.close()
     
     load_avgs = [float(x) for x in line.split()[:3]]
     
     return load_avgs
 
 def cpu_stats(sample_duration=2):
-    with open('/proc/stat') as f1:
-        with open('/proc/stat') as f2:
-            c1 = f1.read()
-            time.sleep(sample_duration)
-            c2 = f2.read()
+    f1 = open('/proc/stat')
+    f2 = open('/proc/stat')
+    c1 = f1.read()
+    time.sleep(sample_duration)
+    c2 = f2.read()
+    f1.close()
+    f2.close()
 
     cs1 = {}
     for l in c1.splitlines():
@@ -79,11 +82,13 @@ def disk_usage():
 
 def disk_stats(sample_duration=2):
     """Return (inbytes, outbytes, in_num, out_num, ioms) of disk."""
-    with open('/proc/diskstats') as f1:
-        with open('/proc/diskstats') as f2:
-            content1 = f1.read()
-            time.sleep(sample_duration)
-            content2 = f2.read()
+    f1 = open('/proc/diskstats')
+    f2 = open('/proc/diskstats')
+    content1 = f1.read()
+    time.sleep(sample_duration)
+    content2 = f2.read()
+    f1.close()
+    f2.close()
 
     ds1 = {}
     for l in content1.splitlines():
@@ -120,30 +125,36 @@ class DiskError(Exception):
 
 
 def mem_stats():
-    with open('/proc/meminfo') as f:
-        for line in f:
-            if line.startswith('MemTotal:'):
-                mem_total = int(line.split()[1]) * 1024
-            elif line.startswith('Active: '):
-                mem_active = int(line.split()[1]) * 1024
-            elif line.startswith('MemFree:'):
-                mem_free = (int(line.split()[1]) * 1024)
-            elif line.startswith('Cached:'):
-                mem_cached = (int(line.split()[1]) * 1024)
-            elif line.startswith('SwapTotal: '):
-                swap_total = (int(line.split()[1]) * 1024)
-            elif line.startswith('SwapFree: '):
-                swap_free = (int(line.split()[1]) * 1024)
+    f = open('/proc/meminfo')
+    for line in f:
+        if line.startswith('MemTotal:'):
+            mem_total = int(line.split()[1]) * 1024
+        elif line.startswith('Active: '):
+            mem_active = int(line.split()[1]) * 1024
+        elif line.startswith('MemFree:'):
+            mem_free = (int(line.split()[1]) * 1024)
+        elif line.startswith('Cached:'):
+            mem_cached = (int(line.split()[1]) * 1024)
+        elif line.startswith('SwapTotal: '):
+            swap_total = (int(line.split()[1]) * 1024)
+        elif line.startswith('SwapFree: '):
+            swap_free = (int(line.split()[1]) * 1024)
+
+    f.close()
+
     return (mem_active, mem_total, mem_cached, mem_free, swap_total, swap_free)
 
 
 # net rx/tx stat
 def net_stats(sample_duration=2):
-    with open('/proc/net/dev') as f1:
-        with open('/proc/net/dev') as f2:
-            content1 = f1.read()
-            time.sleep(sample_duration)
-            content2 = f2.read()
+    f1 = open('/proc/net/dev')
+    f2 = open('/proc/net/dev')
+    content1 = f1.read()
+    time.sleep(sample_duration)
+    content2 = f2.read()
+    f1.close()
+    f2.close()
+
     sep = ':'
     stats1 = {}
     for line in content1.splitlines():
@@ -180,46 +191,46 @@ class NetError(Exception):
 def main():
     
     # load
-    print 'load: %s' % load_avg()[0]
+    print('load: %s' % load_avg()[0])
     
     # cpu
-    print "\ncpu stats:\n%14s %8s %8s %8s %8s %8s %8s %8s" % ("cpu", "user", "nice", "system", "iowait", "irq", "softirq", "idle")
+    print("\ncpu stats:\n%14s %8s %8s %8s %8s %8s %8s %8s" % ("cpu", "user", "nice", "system", "iowait", "irq", "softirq", "idle"))
     cs = cpu_stats()
-    cpus = cs.keys()
+    cpus = list(cs.keys())
     cpus.sort()
     for c in cpus:
-      print "%14s %7.1f%% %7.1f%% %7.1f%% %7.1f%% %7.1f%% %7.1f%% %7.1f%%" % (c, cs[c]['user'], \
-          cs[c]['nice'], cs[c]['system'], cs[c]['iowait'], cs[c]['irq'], cs[c]['softirq'], cs[c]['idle'])
+      print("%14s %7.1f%% %7.1f%% %7.1f%% %7.1f%% %7.1f%% %7.1f%% %7.1f%%" % (c, cs[c]['user'], \
+          cs[c]['nice'], cs[c]['system'], cs[c]['iowait'], cs[c]['irq'], cs[c]['softirq'], cs[c]['idle']))
 
     # disk
-    print '\ndisk usage:\n%14s %9s %8s %8s %8s %s' % ("device", "total(MB)", "used(MB)", "free(MB)", "used%", "mount point")
+    print('\ndisk usage:\n%14s %9s %8s %8s %8s %s' % ("device", "total(MB)", "used(MB)", "free(MB)", "used%", "mount point"))
     df = disk_usage()
-    disks = df.keys()
+    disks = list(df.keys())
     disks.sort()
     for d in disks:
-      print '%14s %9s %8s %8s %8s %s' % (d, df[d][0], df[d][1], df[d][2], df[d][3], df[d][4])
+      print('%14s %9s %8s %8s %8s %s' % (d, df[d][0], df[d][1], df[d][2], df[d][3], df[d][4]))
 
-    print "\ndisk stats:\n%14s %8s %8s %8s %8s %8s" % ("device", "rKB/s", "wKB/s", "r/s", "w/s", "util%")
+    print("\ndisk stats:\n%14s %8s %8s %8s %8s %8s" % ("device", "rKB/s", "wKB/s", "r/s", "w/s", "util%"))
     ds = disk_stats()
-    devices = ds.keys()
+    devices = list(ds.keys())
     devices.sort()
     for d in devices:
-      print "%14s %8.1f %8.1f %8.1f %8.1f %7s%%" % (d, ds[d][0], ds[d][1], ds[d][2], ds[d][3], ds[d][4])
+      print("%14s %8.1f %8.1f %8.1f %8.1f %7s%%" % (d, ds[d][0], ds[d][1], ds[d][2], ds[d][3], ds[d][4]))
       
     # memory
-    print "\nmem stats:\n%14s %8s %8s %8s %8s" % ("total(MB)", "used(MB)", "cached(MB)", "free(MB)", "usage%")
+    print("\nmem stats:\n%14s %8s %8s %8s %8s" % ("total(MB)", "used(MB)", "cached(MB)", "free(MB)", "usage%"))
     used, total, cached, free, _, _ = mem_stats()
     mem_usage = float(used) * 100 / float(total)
-    print "%14s %8s %10s %8s %7.2f%%" % (int(total)/1048576, int(used)/1048576, \
-      int(cached)/1048576, int(free)/1048576, mem_usage)
+    print("%14s %8s %10s %8s %7.2f%%" % (int(total)/1048576, int(used)/1048576, \
+      int(cached)/1048576, int(free)/1048576, mem_usage))
 
     # network
-    print "\nnetwork stats:\n%14s %8s %8s %8s %8s" % ("interface", "rbyte/s", "tbyte/s", "rpps", "tpps")
+    print("\nnetwork stats:\n%14s %8s %8s %8s %8s" % ("interface", "rbyte/s", "tbyte/s", "rpps", "tpps"))
     nss = net_stats()
-    interfaces = nss.keys()
+    interfaces = list(nss.keys())
     interfaces.sort()
     for i in interfaces:
-      print "%14s %8d %8d %8d %8d" % (i, nss[i][0], nss[i][1], nss[i][2], nss[i][3])
+      print("%14s %8d %8d %8d %8d" % (i, nss[i][0], nss[i][1], nss[i][2], nss[i][3]))
     
     
 if __name__ == '__main__':   
