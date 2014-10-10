@@ -71,8 +71,8 @@ def cpu_stats(sample_duration=2):
 def disk_usage():
     """Return disk usage statistics."""
     df = {}
-    output = Popen(['df', '-l', '-m', '-x', 'proc', '-x', 'tmpfs', '-x', \
-                  'devtmpfs', '-x', 'ecryptfs'], stdout=PIPE).communicate()[0]
+    output = Popen(['df', '-l', '-m', '-x', 'proc', '-x', 'tmpfs', '-x', 'devtmpfs', \
+             '-x', 'ecryptfs'], stdout=PIPE, universal_newlines=True).communicate()[0]
     for l in output.splitlines()[1:]:
         d = l.split()
         df[d[0]] = d[1:] # size, used, free, percent, mountpoint
@@ -221,7 +221,7 @@ def main():
     print("\nmem stats:\n%14s %8s %8s %8s %8s" % ("total(MB)", "used(MB)", "cached(MB)", "free(MB)", "usage%"))
     used, total, cached, free, _, _ = mem_stats()
     mem_usage = float(used) * 100 / float(total)
-    print("%14s %8s %10s %8s %7.2f%%" % (int(total)/1048576, int(used)/1048576, \
+    print("%14d %8d %10d %8d %7.2f%%" % (int(total)/1048576, int(used)/1048576, \
       int(cached)/1048576, int(free)/1048576, mem_usage))
 
     # network
