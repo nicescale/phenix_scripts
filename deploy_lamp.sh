@@ -57,7 +57,6 @@ case $DIST in
             php5-gd php5-json php5-memcached php5-cli php5-curl php5-mysql
     update-rc.d mysql defaults
     update-rc.d apache2 defaults
-    mysql_install_db
     service apache2 start
     service mysql start
     echo "<?php phpinfo(); ?>" > /var/www/html/info.php
@@ -65,7 +64,6 @@ case $DIST in
   Fedora)
     yum -y install httpd mariadb-server mariadb php php-mysql php-pecl-memcache \
            php-pear-Net-Socket php-gd php-cli php-mbstring  php-mcrypt php-mhash
-    mysql_install_db
     systemctl enable httpd.service
     systemctl enable mariadb.service
     systemctl start httpd.service
@@ -76,7 +74,6 @@ case $DIST in
     if echo $RELEASE|grep -qP '^7'; then
       yum -y install httpd mariadb-server mariadb php php-mysql php-pecl-memcache \
              php-pear-Net-Socket php-gd php-cli php-mbstring  php-mcrypt php-mhash
-      mysql_install_db
       systemctl enable httpd.service
       systemctl enable mariadb.service
       systemctl start httpd.service
@@ -86,7 +83,6 @@ case $DIST in
              php-pear-Net-Socket php-gd php-cli php-mbstring  php-mcrypt php-mhash
       chkconfig httpd on
       chkconfig mysqld on
-      mysql_install_db
       service httpd start
       service mysqld start
     fi
