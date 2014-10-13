@@ -1,0 +1,44 @@
+[
+  {
+    "filename":"deploy_lamp.sh",
+    "name":"部署Lamp环境",
+    "language":"bash",
+    "comment":"部署一个all_in_one的Lamp环境, Apache+MySql+PHP，支持CentOS/Redhat/Debian/Ubuntu"
+  },
+  {
+    "filename":"sysstats.py",
+    "name":"Linux系统数据统计",
+    "language":"python",
+    "comment": "细粒度的Linux系统数据收集，可以了解每个cpu核的使用，可以查看某个磁盘分区的IOPS使用和磁盘繁忙程度，可以知道每个网卡的流量和PPS, 定位系统瓶颈好帮收手"
+  },
+  {
+    "filename":"install_docker.sh"
+    "name":"初始化docker环境",
+    "language":"bash",
+    "comment":"自动初始化docker环境，支持Ubuntu/Debian/CentOS主流Linux版本"
+  },
+  {
+    "filename":"deploy_ghost_docker.sh",
+    "name":"部署ghost docker镜像",
+    "language":"bash",
+    "comment":"部署最小(60MB)的ghost博客, 可自定义配置和模板"
+  },
+  {
+    "filename":"hellonicescale.js",
+    "name":"Hello NiceScale",
+    "language":"node",
+    "comment":"NodeJS演示，输出\"Hello NiceScale\""
+  },
+  {
+    "filename":"phpinfo.php",
+    "name":"输出phpinfo",
+    "language":"php",
+    "comment":"PHP演示"
+  },
+  {
+    "filename":"view_authorized_keys.sh",
+    "name":"查看SSH公钥",
+    "language":"bash",
+    "comment":"查看服务器添加了哪些SSH公钥"
+  }
+]
