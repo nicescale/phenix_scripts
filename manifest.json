@@ -12,7 +12,7 @@
     "comment": "细粒度的Linux系统数据收集，可以了解每个cpu核的使用，可以查看某个磁盘分区的IOPS使用和磁盘繁忙程度，可以知道每个网卡的流量和PPS, 定位系统瓶颈好帮收手"
   },
   {
-    "filename":"install_docker.sh"
+    "filename":"install_docker.sh",
     "name":"初始化docker环境",
     "language":"bash",
     "comment":"自动初始化docker环境，支持Ubuntu/Debian/CentOS主流Linux版本"
