@@ -1,22 +1,20 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 
-PUBKEY_PATH=/data/phenix/keys/pubkey.pem
-PRIVKEY_PATH=/data/phenix/jobworker/privkey.pem
-
-mkdir -p /data/phenix/{mongodb,keys,jobworker} 2>/dev/null || true
+mkdir -p /data/phenix/{mongodb,keys,jobworker,public_scripts} 2>/dev/null || true
 
 JOBWORKER_PORT=9997
 KEYSERVER_PORT=9998
 API_PORT=9999
 
-#keyname=phenix_$RANDOM
-#ssh-keygen -b 2048 -t rsa -f /tmp/$keyname -q -N ""
-openssl genrsa -out /tmp/private.pem 2048
-openssl rsa -in /tmp/private.pem -outform PEM -pubout -out /tmp/public.pem
-[ -f $PUBKEY_PATH ] || mv /tmp/public.pem $PUBKEY_PATH
-[ -f $PRIVKEY_PATH ] || mv /tmp/private.pem $PRIVKEY_PATH
+PRIVKEY_PATH=/data/phenix/jobworker/privkey.pem
+PUBKEY_PATH=/data/phenix/keys/pubkey.pem
+
+if [ ! -f $PUBKEY_PATH -o ! -f $PRIVKEY_PATH ]; then
+  openssl genrsa -out $PRIVKEY_PATH 2048
+  openssl rsa -in $PRIVKEY_PATH -outform PEM -pubout -out $PUBKEY_PATH
+fi
 
 # pull docker image
 docker pull docker.nicescale.com:5000/nicescale/mongodb:latest
@@ -38,7 +36,7 @@ docker run -d -v $PRIVKEY_PATH:/tmp/jobworker.pem:ro --name jobworker -p $JOBWOR
 docker run -d --name=phenix-keys -v /data/phenix/keys:/data -p $KEYSERVER_PORT:80 -e KEY_SERVER_DATA_DIR=/data nicescale/phenix-keyserver
 
 IP=$(/sbin/ip ad|grep -P 'inet \d+\.\d+\.\d+\.\d+'|cut -f1 -d'/'|awk '{print $2}'|grep -v 127.0.0.1|grep -v -P '\d+\.\d+\.\d+\.1$'|head -1)
-
-docker run -d --name=phenix-api -e KEY_SERVER_URL=http://$IP:$KEYSERVER_PORT -e JOB_WORKER_URL=http://$IP:$JOBWORKER_PORT -e DB_NAME=phenix --link=phenix-mongodb:mongodb -p $API_PORT:80 nicescale/phenix-api
+git clone https://github.com/nicescale/phenix_scripts.git /data/phenix/public_scripts
+docker run -d --name=phenix-api -e KEY_SERVER_URL=http://$IP:$KEYSERVER_PORT -e JOB_WORKER_URL=http://$IP:$JOBWORKER_PORT -e DB_NAME=phenix --link=phenix-mongodb:mongodb -v /data/phenix/public_scripts:/tmp/scripts:ro -p $API_PORT:80 nicescale/phenix-api
 
 docker run -d --name phenix-console --link phenix-api:api -p 80:80 nicescale/phenix-www 
