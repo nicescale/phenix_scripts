@@ -40,7 +40,7 @@ function get_release() {
   [ -z "$VERSION" ] && VERSION=$(awk '/DISTRIB_RELEASE=/' /etc/*-release | sed 's/DISTRIB_RELEASE=//')
   [ -z "$VERSION" ] && VERSION=$(awk '/VERSION_ID=/' /etc/*-release | sed 's/VERSION_ID=//')
   [ -z "$VERSION" ] && VERSION=$(cat /etc/*-release|rev|cut -f1 -d ' '|rev|grep -P '^\d')
-  if echo $VERSION|grep -q -P '"\d"'; then
+  if echo $VERSION|grep -q -P '"\d+.*"'; then
     echo $VERSION|tr -d '"'
   else
     echo $VERSION
