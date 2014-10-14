@@ -3,13 +3,13 @@
     "filename":"deploy_lamp.sh",
     "name":"部署Lamp环境",
     "language":"bash",
-    "comment":"部署一个all_in_one的Lamp环境, Apache+MySql+PHP，支持CentOS/Redhat/Debian/Ubuntu"
+    "comment":"部署一个all-in-one的Lamp环境, Apache+MySql+PHP，支持CentOS/Redhat/Debian/Ubuntu"
   },
   {
     "filename":"sysstats.py",
     "name":"Linux系统数据统计",
     "language":"python",
-    "comment": "细粒度的Linux系统数据收集，可以了解每个cpu核的使用，可以查看某个磁盘分区的IOPS使用和磁盘繁忙程度，可以知道每个网卡的流量和PPS, 定位系统瓶颈好帮收手"
+    "comment": "细粒度的Linux系统数据收集，可以了解每个cpu核的使用，可以查看某个磁盘分区的IOPS使用和磁盘繁忙程度，可以知道每个网卡的流量和PPS, 定位系统瓶颈好帮手"
   },
   {
     "filename":"install_docker.sh",
