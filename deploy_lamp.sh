@@ -65,9 +65,9 @@ case $DIST in
     yum -y install httpd mariadb-server mariadb php php-mysql php-pecl-memcache \
            php-pear-Net-Socket php-gd php-cli php-mbstring  php-mcrypt php-mhash
     systemctl enable httpd.service
-    systemctl enable mysqld.service
+    systemctl enable mysqld.service || systemctl enable mariadb.service
     systemctl start httpd.service
-    systemctl start mysqld.service
+    systemctl start mysqld.service || systemctl start mariadb.service
     echo "<?php phpinfo(); ?>" > /var/www/html/info.php
   ;;
   CentOS|RHEL|SLES)
