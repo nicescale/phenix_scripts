@@ -89,8 +89,7 @@ case $DIST in
     echo "<?php phpinfo(); ?>" > /var/www/html/info.php
   ;;
   Archlinux)
-    pacman -Syu
-    pacman -Sy apache percona-server php php-apache
+    pacman -S --noconfirm  apache percona-server php php-apache
     set -i -e 's/LoadModule unique_id_module.*/#LoadModule unique_id_module modules/mod_unique_id.so/' /etc/httpd/conf/httpd.conf
 
     echo '<?php phpinfo(); ?>' > /srv/http/info.php

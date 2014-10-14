@@ -101,20 +101,18 @@ def disk_stats(sample_duration=2):
 
     ds1 = {}
     for l in content1.splitlines():
-        if 'loop' in l:
-            continue
-        if 'ram' in l:
-            continue
         d = l.strip().split()
+        if d[2].startswith('loop') or d[2].startswith('ram') or \
+           d[2].startswith('fd') or d[2].startswith('sr'):
+           continue
         ds1[d[2]] = [d[3], d[7], d[4], d[8], d[12]]
 
     ds2 = {}
     for l in content2.splitlines():
-        if 'loop' in l:
-            continue
-        if 'ram' in l:
-            continue
         d = l.strip().split()
+        if d[2].startswith('loop') or d[2].startswith('ram') or \
+           d[2].startswith('fd') or d[2].startswith('sr'):
+           continue
         ds2[d[2]] = [d[3], d[7], d[4], d[8], d[12]]
 
     ds = {}
@@ -203,7 +201,7 @@ def main():
     print('load: %s' % load_avg()[0])
     
     # cpu
-    print("\ncpu stats:\n%14s %8s %8s %8s %8s %8s %8s %8s" % ("cpu", "user", "nice", "system", "iowait", "irq", "softirq", "idle"))
+    print("\ncpu stats:\n%14s %8s %8s %8s %8s %8s %8s %8s" % ("device", "user", "nice", "system", "iowait", "irq", "softirq", "idle"))
     cs = cpu_stats()
     cpus = list(cs.keys())
     cpus.sort()
