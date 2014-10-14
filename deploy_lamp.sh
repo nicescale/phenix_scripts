@@ -53,7 +53,7 @@ RELEASE=`get_release`
 case $DIST in
   Ubuntu|Debian)
     apt-get update
-    DEBIAN_FRONTEND-noninteractive apt-get -y install apache2 mysql-server php5 php5-imagick \
+    DEBIAN_FRONTEND=noninteractive apt-get -y install apache2 mysql-server php5 php5-imagick \
             php5-gd php5-json php5-memcached php5-cli php5-curl php5-mysql
     update-rc.d mysql defaults
     update-rc.d apache2 defaults
