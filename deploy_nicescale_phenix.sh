@@ -2,6 +2,7 @@
 
 set -e
 
+[ -d /data/phenix/public_scripts ] && rm -fr /data/phenix/public_scripts
 mkdir -p /data/phenix/{mongodb,keys,jobworker,public_scripts} 2>/dev/null || true
 
 JOBWORKER_PORT=9997
@@ -34,21 +35,21 @@ sleep 1
 
 echo '> running mongodb'
 [ -f /data/phenix/mongodb/data ] || mkdir -p /data/phenix/mongodb/data
-docker run -it -d --name phenix-mongodb -v /data/phenix/mongodb/data:/data nicescale/mongodb
+docker run -d --name phenix-mongodb --restart=always -v /data/phenix/mongodb/data:/data nicescale/mongodb
 
 echo '> running jobworker'
-docker run -d -v $PRIVKEY_PATH:/tmp/jobworker.pem:ro --name jobworker -p $JOBWORKER_PORT:5919 nicescale/phenix-jobworker
+docker run -d -v $PRIVKEY_PATH:/tmp/jobworker.pem:ro --restart=always --name jobworker -p $JOBWORKER_PORT:5919 nicescale/phenix-jobworker
 
 echo '> running keyserver'
-docker run -d --name phenix-keys -v /data/phenix/keys:/data -p $KEYSERVER_PORT:80 -e KEY_SERVER_DATA_DIR=/data nicescale/phenix-keyserver
+docker run -d --name phenix-keys -v /data/phenix/keys:/data --restart=always -p $KEYSERVER_PORT:80 -e KEY_SERVER_DATA_DIR=/data nicescale/phenix-keyserver
 
 echo '> running api'
 IP=$(/sbin/ip ad|grep -P 'inet \d+\.\d+\.\d+\.\d+'|cut -f1 -d'/'|awk '{print $2}'|grep -v 127.0.0.1|grep -v -P '\d+\.\d+\.\d+\.1$'|head -1)
 git clone https://github.com/nicescale/phenix_scripts.git /data/phenix/public_scripts
-docker run -d --name phenix-api -e KEY_SERVER_URL=http://$IP:$KEYSERVER_PORT -e JOB_WORKER_URL=http://$IP:$JOBWORKER_PORT -e DB_NAME=phenix --link=phenix-mongodb:mongodb -v /data/phenix/public_scripts:/tmp/scripts:ro -p $API_PORT:80 nicescale/phenix-api
+docker run -d --name phenix-api --restart=always -e KEY_SERVER_URL=http://$IP:$KEYSERVER_PORT -e JOB_WORKER_URL=http://$IP:$JOBWORKER_PORT -e DB_NAME=phenix --link=phenix-mongodb:mongodb -v /data/phenix/public_scripts:/tmp/scripts:ro -p $API_PORT:80 nicescale/phenix-api
 
 echo '> running console'
-docker run -d --name phenix-console --link phenix-api:api -p 80:80 nicescale/phenix-www
+docker run -d --name phenix-console --restart=always --link phenix-api:api -p 80:80 nicescale/phenix-www
 
 echo '> generate 100 invite codes:'
 cat <<EOF > /tmp/invite_code.js
@@ -70,9 +71,9 @@ for (var j=0;j<100;j++)
 }
 printjson("-")
 EOF
-docker run --it --rm -v /tmp/invite_code.js:/tmp/invite.js --link phenix-mongodb:db nicescale/mongodb mongo \$DB_PORT_27017_TCP_ADDR:\$DB_PORT_27017_TCP_PORT/phenix /tmp/invite.js
+docker run -it --rm -v /tmp/invite_code.js:/tmp/invite.js --link phenix-mongodb:db nicescale/mongodb mongo sh -c "\$DB_PORT_27017_TCP_ADDR:\$DB_PORT_27017_TCP_PORT/phenix /tmp/invite.js"
 
 echo
-echo > Done
+echo "> Done"
 echo
-echo > "open http://$IP in your browser"
+echo "> open http://$IP in your browser"
