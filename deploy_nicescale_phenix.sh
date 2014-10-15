@@ -71,7 +71,7 @@ for (var j=0;j<100;j++)
 }
 printjson("-")
 EOF
-docker run -it --rm -v /tmp/invite_code.js:/tmp/invite.js --link phenix-mongodb:db nicescale/mongodb mongo sh -c "\$DB_PORT_27017_TCP_ADDR:\$DB_PORT_27017_TCP_PORT/phenix /tmp/invite.js"
+docker run -it --rm -v /tmp/invite_code.js:/tmp/invite.js --link phenix-mongodb:db nicescale/mongodb sh -c "mongo \$DB_PORT_27017_TCP_ADDR:\$DB_PORT_27017_TCP_PORT/phenix /tmp/invite.js"
 
 echo
 echo "> Done"
