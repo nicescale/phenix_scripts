@@ -59,7 +59,7 @@ case $DIST in
     update-rc.d apache2 defaults
     service apache2 start
     service mysql start
-    echo "<?php phpinfo(); ?>" > /var/www/html/info.php
+    echo "<?php phpinfo(); ?>" > /var/www/info.php
   ;;
   Fedora)
     yum -y install httpd mariadb-server mariadb php php-mysql php-pecl-memcache \
