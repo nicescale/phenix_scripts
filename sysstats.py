@@ -8,6 +8,7 @@ import os
 import time
 import subprocess
 from subprocess import Popen, PIPE
+from multiprocessing.pool import ThreadPool
 
 
 def file_desc():
@@ -196,13 +197,21 @@ class NetError(Exception):
 
 
 def main():
-    
+    pool = ThreadPool(processes=3)
+    cp = pool.apply_async(cpu_stats)
+    dp = pool.apply_async(disk_stats)
+    np = pool.apply_async(net_stats)
+
+    cs = cp.get()
+    ds = dp.get()
+    nss = np.get()
+
     # load
     print('load: %s' % load_avg()[0])
     
     # cpu
     print("\ncpu stats:\n%14s %8s %8s %8s %8s %8s %8s %8s" % ("device", "user", "nice", "system", "iowait", "irq", "softirq", "idle"))
-    cs = cpu_stats()
+    #cs = cpu_stats()
     cpus = list(cs.keys())
     cpus.sort()
     for c in cpus:
@@ -218,7 +227,7 @@ def main():
       print('%14s %9s %8s %8s %8s %s' % (d, df[d][0], df[d][1], df[d][2], df[d][3], df[d][4]))
 
     print("\ndisk stats:\n%14s %8s %8s %8s %8s %8s" % ("device", "rKB/s", "wKB/s", "r/s", "w/s", "util%"))
-    ds = disk_stats()
+    #ds = disk_stats()
     devices = list(ds.keys())
     devices.sort()
     for d in devices:
@@ -232,14 +241,15 @@ def main():
       int(cached)/1048576, int(free)/1048576, mem_usage))
 
     # network
-    print("\nnetwork stats:\n%14s %8s %8s %8s %8s" % ("interface", "rbyte/s", "tbyte/s", "rpps", "tpps"))
-    nss = net_stats()
+    print("\nnetwork stats:\n%14s %10s %10s %8s %8s" % ("interface", "rbyte/s", "tbyte/s", "rpps", "tpps"))
+    #nss = net_stats()
     interfaces = list(nss.keys())
     interfaces.sort()
     for i in interfaces:
-      print("%14s %8d %8d %8d %8d" % (i, nss[i][0], nss[i][1], nss[i][2], nss[i][3]))
+      print("%14s %10d %10d %8d %8d" % (i, nss[i][0], nss[i][1], nss[i][2], nss[i][3]))
     
     
 if __name__ == '__main__':   
     main()
+
 
