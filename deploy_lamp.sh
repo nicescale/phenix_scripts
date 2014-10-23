@@ -57,8 +57,8 @@ case $DIST in
             php5-gd php5-json php5-memcached php5-cli php5-curl php5-mysql
     update-rc.d mysql defaults
     update-rc.d apache2 defaults
-    service apache2 start
-    service mysql start
+    ps ax|grep -q apache[2] || service apache2 start
+    ps ax|grep -q mysq[l]d || service mysql start
     echo "<?php phpinfo(); ?>" > /var/www/info.php
   ;;
   Fedora)
