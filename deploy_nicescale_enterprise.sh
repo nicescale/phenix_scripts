@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 function distrib_id() {
   if [ -x /usr/bin/lsb_release ]; then
     lsb_release --id --short
@@ -56,6 +58,7 @@ case $DIST in
     ;;
   CentOS)
     if echo $RELEASE|grep ^6; then
+      [ -f /etc/yum.repos.d/epel.repo ] ||
       rpm -i http://mirrors.hustunique.com/epel/6/i386/epel-release-6-8.noarch.rpm
       yum -y install docker-io
       service docker start
