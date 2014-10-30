@@ -1,36 +1,27 @@
 #!/bin/bash
 
+# chkconfig是RedHat系Linux下用来管理SysV的工具，可用来设定某个服务在开机时是否自动启动。注意chkconfig在CentOS7/RedHat7以上版本中失效
+
 set -e
-
-#initialize testing envirement
-sandbox_dir=/tmp/sandbox_$RANDOM
-[ -d $sandbox_dir ] || mkdir $sandbox_dir
-cd $sandbox_dir 
-cat <<EOF > demo_file
-THIS LINE IS THE 1ST UPPER CASE LINE IN THIS FILE.
-this line is the 1st lower case line in this file.
-This Line Has All Its First Character Of The Word With Upper Case.
-
-Two lines above this line is empty.
-And this is the last line.
-EOF
-cp demo_file demo_file1
-
-#clean all when exit
-clean_all() {
-  [ -d $sandbox_dir ] && rm -fr $sandbox_dir
-}
-trap 'clean_all' ERR
 
 #begin examples
 
-#Search for a given string in a file (case in-sensitive search).
-LEVEL=$(cat /etc/inittab |grep ^id:|cut -f2 -d:)
+# 列出系统中所有SysV服务，以及可以看到在每个runlevel上的开关
+chkconfig --list
 
-grep -i "the" demo_file
+# 当前系统的runlevel(0-6)
+cat /etc/inittab |grep ^id:|cut -f2 -d:
 
-#Display only the file names which matches the given pattern
-grep -l this demo_*
+# 如果ntpd服务在runlevel3上关闭，但如果希望该服务自动启动，那么
+chkconfig ntpd on
+
+# 不允许某个服务自动启动
+chkconfig ntpd off
+
+# 如果想让某个服务脱离chkconfig管理,可以运行del选项，这将会删除所有/etc/rc[0-6]/下的和该服务有关的符号连接文件
+chkconfig --del ntpd
+ 
+# 如果某个服务在chkconfig list中没有，那么可以这样添加
+chkconfig --add ntpd
 
 #end examples
-clean_all

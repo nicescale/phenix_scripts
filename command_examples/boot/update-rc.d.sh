@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# update-rc.d是Debian系Linux发行版管理SysV的工具，对应RedHat的chkconfig
+
 set -e
 
 #initialize testing envirement

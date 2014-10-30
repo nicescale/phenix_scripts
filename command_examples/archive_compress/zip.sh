@@ -57,7 +57,7 @@ zip -r demo_file.zip . -x demo_file3
 zip -d demo_file.zip demo_file1
 
 # 将压缩包的文件解压到特定目录下去
-unzip demo_file.zip -d $sandbox_dir/testdir
+unzip demo_file.zip -d testdir
 
 # end examples
 ls -lR $sandbox_dir
