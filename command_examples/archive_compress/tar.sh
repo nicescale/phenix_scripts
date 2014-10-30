@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# tar是Linux下最常用的归档和备份工具，用来将多个文件合并为一个文件，往往和压缩命令同时使用
+
 set -e
 
 # initialize testing envirement
