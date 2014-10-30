@@ -174,3 +174,5 @@ Output:
 21
 21
 This is the end of filter output
+# sum integers from a file or stdin, one integer per line:
+printf '1\n2\n3\n' | awk '{ sum += $1} END {print sum}'

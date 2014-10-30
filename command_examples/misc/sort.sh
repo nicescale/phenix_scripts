@@ -36,3 +36,14 @@ sort -M filename.txt
 # Example9: Check if the file is alrady in sorted format or not by using -c option. This option will show you what is the first occurence disorderd value.
 sort -c filename.txt
 
+# To sort a file:
+sort file
+
+# To sort a file by keeping only unique:
+sort -u file
+
+# To sort a file and reverse the result:
+sort -r file
+
+# To sort a file randomly:
+sort -R file
