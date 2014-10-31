@@ -110,7 +110,8 @@ if [ ! -f $PUBKEY_PATH -o ! -f $PRIVKEY_PATH ]; then
 fi
 
 echo "> pull docker image now"
-docker pull nicescale/nicescale-enterprise
+#docker pull nicescale/nicescale-enterprise
+docker import http://nicescale-ent.stor.sinaapp.com/nsent.tar.gz nicescale/nicescale-enterprise
 
 echo "> run nicescale enterprise"
 docker run -d --name=nsent -v $TOPDIR:/data -v $TOPDIR/logs:/logs -p 80:80 nicescale/nicescale-enterprise
