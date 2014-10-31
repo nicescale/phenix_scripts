@@ -100,11 +100,16 @@ docker_running || docker -d &
 
 echo "> preparing directory and cert"
 TOPDIR=/data/nicescale
-mkdir -p $TOPDIR/{db,keys,jobworker,public_scripts,logs} 2>/dev/null || true 
+mkdir -p $TOPDIR/{db,keys,jobworker,logs} 2>/dev/null || true 
 PRIVKEY_PATH=$TOPDIR/jobworker/privkey.pem
 PUBKEY_PATH=$TOPDIR/keys/pubkey.pem
 
-if [ ! -f $PUBKEY_PATH -o ! -f $PRIVKEY_PATH ]; then  
+[ -d $TOPDIR/sample-scripts ] ||
+git clone https://github.com/nicescale/phenix_scripts.git $TOPDIR/sample-scripts
+
+cd $TOPDIR/sample-scripts && git pull
+
+if [ ! -f $PUBKEY_PATH -o ! -f $PRIVKEY_PATH ]; then
   openssl genrsa -out $PRIVKEY_PATH 2048
   openssl rsa -in $PRIVKEY_PATH -outform PEM -pubout -out $PUBKEY_PATH
 fi
