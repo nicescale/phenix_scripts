@@ -2,6 +2,9 @@
 
 set -e
 
+ARCH=$(uname -m)
+[ "$ARCH" != "x86_64" ] && echo "Only support 64bit Linux" && exit 1
+
 function distrib_id() {
   if [ -x /usr/bin/lsb_release ]; then
     lsb_release --id --short
@@ -46,35 +49,56 @@ function die() {
   exit 1
 }
 
-DIST=`distrib_id`
-RELEASE=`get_release`
+function docker_installed() {
+  if docker -v > /dev/null 2>&1; then
+    return 0
+  else
+    return 1
+  fi
+}
 
-case $DIST in
-  Ubuntu)
-    [ $RELEASE != "14.04" ] && die "Only support Ubuntu 14.04"
-    apt-get update
-    apt-get -y install lxc-docker
-    ps ax|grep docke[r] || service docker start
-    ;;
-  CentOS)
-    if echo $RELEASE|grep ^6; then
-      [ -f /etc/yum.repos.d/epel.repo ] ||
-      rpm -i http://mirrors.hustunique.com/epel/6/i386/epel-release-6-8.noarch.rpm
-      yum -y install docker-io
-      service docker start
-    elif echo $RELEASE|grep ^7; then
-      yum -y install docker
-      systemctl start docker.service
-    else
-      die "CentOS $RELEASE not support yet."
-    fi
-    ;;
-  *)
-    die "OS($DIST) not supported yet"
-esac
+function docker_running() {
+  if docker ps > /dev/null 2>&1; then
+    return 0
+  else
+    return 1
+  fi
+}
 
-docker ps -q || die "docker NOT run"
+function install_docker() {
+  DIST=`distrib_id`
+  RELEASE=`get_release`
 
+  case $DIST in
+    Ubuntu)
+      [ $RELEASE != "14.04" ] && die "Only support Ubuntu 14.04"
+      apt-get update
+      apt-get -y install lxc-docker
+      ps ax|grep docke[r] || service docker start
+      ;;
+    CentOS)
+      if echo $RELEASE|grep ^6; then
+        [ -f /etc/yum.repos.d/epel.repo ] ||
+        rpm -i http://mirrors.hustunique.com/epel/6/x86_64/epel-release-6-8.noarch.rpm
+        yum -y install docker-io
+        service docker start
+      elif echo $RELEASE|grep ^7; then
+        yum -y install docker
+        systemctl start docker.service
+      else
+        die "CentOS $RELEASE not support yet."
+      fi
+      ;;
+    *)
+      die "OS($DIST) not supported yet"
+  esac
+}
+
+echo "> check docker installed? if no, then install docker"
+docker_installed || install_docker
+docker_running || docker -d &
+
+echo "> preparing directory and cert"
 TOPDIR=/data/nicescale
 mkdir -p $TOPDIR/{db,keys,jobworker,public_scripts,logs} 2>/dev/null || true 
 PRIVKEY_PATH=$TOPDIR/jobworker/privkey.pem
@@ -85,6 +109,10 @@ if [ ! -f $PUBKEY_PATH -o ! -f $PRIVKEY_PATH ]; then
   openssl rsa -in $PRIVKEY_PATH -outform PEM -pubout -out $PUBKEY_PATH
 fi
 
+echo "> pull docker image now"
 docker pull nicescale/nicescale-enterprise
 
-ocker run -d --name=ns-enterprise -v $TOPDIR:/data -v $TOPDIR/logs:/logs -p 80:80 nicescale/nicescale-enterprise
+echo "> run nicescale enterprise"
+docker run -d --name=nsent -v $TOPDIR:/data -v $TOPDIR/logs:/logs -p 80:80 nicescale/nicescale-enterprise
+
+echo "> congratulations! you can now open nicescale enterprise in your browser."
