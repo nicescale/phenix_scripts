@@ -40,5 +40,12 @@
     "name":"查看SSH公钥",
     "language":"bash",
     "comment":"查看服务器添加了哪些SSH公钥"
+  },
+  {
+    "filename":"deploy_nicescale_enterprise.sh",
+    "name":"部署NiceScale企业版",
+    "language":"bash",
+    "comment":"NiceScale企业版是用来管理公司内网服务器的"
   }
+
 ]
