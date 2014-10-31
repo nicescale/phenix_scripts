@@ -65,6 +65,26 @@ function docker_running() {
   fi
 }
 
+function run_docker() {
+  DIST=`distrib_id`
+  RELEASE=`get_release`
+
+  case $DIST in
+    Ubuntu)
+      service docker start
+      ;;
+    CentOS)
+      if echo $RELEASE|grep ^6; then
+        service docker start
+      else
+        systemctl start docker.service
+      fi
+      ;;
+    *)
+      echo "not support"
+  esac
+}
+
 function install_docker() {
   DIST=`distrib_id`
   RELEASE=`get_release`
@@ -96,7 +116,7 @@ function install_docker() {
 
 echo "> check docker installed? if no, then install docker"
 docker_installed || install_docker
-docker_running || docker -d &
+docker_running || run_docker
 
 echo "> preparing directory and cert"
 TOPDIR=/data/nicescale
