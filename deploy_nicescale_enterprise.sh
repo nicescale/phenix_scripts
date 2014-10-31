@@ -114,6 +114,6 @@ echo "> pull docker image now"
 docker import http://nicescale-ent.stor.sinaapp.com/nsent.tar.gz nicescale/nicescale-enterprise
 
 echo "> run nicescale enterprise"
-docker run -d --name=nsent -v $TOPDIR:/data -v $TOPDIR/logs:/logs -p 80:80 nicescale/nicescale-enterprise
+docker run -d --name=nsent -v $TOPDIR:/data -v $TOPDIR/logs:/logs -p 80:80 nicescale/nicescale-enterprise /bin/phenix-init -c /etc/process.json -inherit-env true
 
 echo "> congratulations! you can now open nicescale enterprise in your browser."

@@ -61,3 +61,7 @@ tcpdump -X
 # - not dst host 8.8.8.8
 # - src net 67.207.148.0 mask 255.255.255.0
 # - src net 67.207.148.0/24
+
+#. Display Captured Packets in HEX and ASCII
+#The following command with option -XX capture the data of each packet, including its link level header in HEX and ASCII format.
+tcpdump -XX -i eth0

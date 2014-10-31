@@ -1,27 +1,26 @@
-# Print all system information
+#!/bin/bash
+
+# uname是一个打印Unix操作系统信息的小工具，可以打印内核版本，cpu类型，hostname等各种信息
+
+set -e
+
+# 打印所有信息，包括操作系统，内核，cpu，hostname等
 uname -a
-# Linux system-hostname 3.2.0-4-amd64 #1 SMP Debian 3.2.32-1 x86_64 GNU/Linux
 
-# Print the hostname
+# 打印short hostname，等同于hostname -s
 uname -n
-# system-hostname
 
-# Print the kernel release
+# 打印内核版本
 uname -r
-# 3.2.0-4-amd64
 
-# Print the kernel version, with more specific information
+# 打印更详细的内核版本信息
 uname -v
-# #1 SMP Debian 3.2.32-1
 
-# Print the hardware instruction set
+# 打印cpu指令集
 uname -m
-# x86_64
 
-# Print the kernel name
+# 打印内核名, linux发行版输出为Linux，用来和其他*nix区分
 uname -s
-# Linux
 
-# Print the operating system
+# 打印操作系统，在linux下一般输出为GNU/Linux
 uname -o
-# GNU/Linux

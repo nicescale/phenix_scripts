@@ -1,2 +1,4 @@
-# Printout disk free space in a human readable format
+#!/bin/bash
+
+# df用来打印出磁盘使用情况, -h表示更适合人阅读的方式
 df -h
