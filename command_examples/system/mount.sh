@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+# mount是一个文件系统挂载工具,umount则相反，用来卸载文件系统
 
 # begin examples
 
@@ -24,7 +24,7 @@ mount --bind /origin/path /destination/path
 # 考虑到安全，禁止某个文件系统下的文件具有可执行权限
 mount -o noexec /dev/sda2 /data
 
-# 避免频繁更新atime，一般用户日志分区
+# 避免频繁更新atime，一般用于日志分区
 mount -o noatime -L LOG /var/log/www
 
 # 挂载网络文件系统
