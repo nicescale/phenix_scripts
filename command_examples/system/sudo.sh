@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# sudo到root用户安装nginx
+sudo apt-get -y install nginx
