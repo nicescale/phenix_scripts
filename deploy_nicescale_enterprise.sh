@@ -118,22 +118,11 @@ echo "> check docker installed? if no, then install docker"
 docker_installed || install_docker
 docker_running || run_docker
 
-echo "> preparing directory and cert"
-TOPDIR=/data/nicescale
-mkdir -p $TOPDIR/{db,keys,jobworker,logs} 2>/dev/null || true 
-PRIVKEY_PATH=$TOPDIR/jobworker/privkey.pem
-PUBKEY_PATH=$TOPDIR/keys/pubkey.pem
-
-if [ ! -f $PUBKEY_PATH -o ! -f $PRIVKEY_PATH ]; then
-  openssl genrsa -out $PRIVKEY_PATH 2048
-  openssl rsa -in $PRIVKEY_PATH -outform PEM -pubout -out $PUBKEY_PATH
-fi
-
 echo "> pull docker image now"
-#docker pull nicescale/nicescale-enterprise
-docker import http://nicescale-ent.stor.sinaapp.com/nsent.tar.gz nicescale/nicescale-enterprise
+docker import http://t.cn/R7j9dMp nicescale/nsent
 
 echo "> run nicescale enterprise"
-docker run -d --name=nsent -v $TOPDIR:/data -v $TOPDIR/logs:/logs -p 80:80 nicescale/nicescale-enterprise /bin/phenix-init -c /etc/process.json -inherit-env true
+mkdir /nicescale
+docker run -d -v /nicescale:/data -p 80:80 nicescale/nsent /bin/phenix-init
 
 echo "> congratulations! you can now open nicescale enterprise in your browser."
