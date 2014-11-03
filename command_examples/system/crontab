@@ -1,7 +1,7 @@
 # set a shell
 SHELL=/bin/bash
 
-# crontab format
+# cron是unix下的任务定时调度器，语法如下：
 * * * * *  command_to_execute
 - - - - -
 | | | | |
@@ -11,10 +11,14 @@ SHELL=/bin/bash
 | +------- hour (0 - 23)
 +--------- minute (0 - 59)
 
-# example entries
-# every 15 min
+# begin examples
+
+# 每隔15分钟执行一次
 */15 * * * * /home/user/command.sh
-# every midnight
-0 * * * * /home/user/command.sh
-# every Saturday at 8:05 AM
+
+# 在1:12,3:12,5:15的时间分别执行
+12 1-5/2 * * * /home/user/command.sh
+12 1,3,5 * * * /home/user/command.sh
+
+# 每周六早晨8:05执行
 5 8 * * 6 /home/user/command.sh

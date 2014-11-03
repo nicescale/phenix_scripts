@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# IO重定向(redirect)和管道(pipe)技术: 在Unix世界，总是有三个默认打开的文件：stdin(键盘), stdout(屏幕), stderr(输出到屏幕的错误消息)。这三个文件和其它打开的文件，都可以被重定向。简单来说，重定向就是捕捉一个文件或程序的输出，并将这个输出作为其它文件或程序的输入.每个打开的文件都有一个文件描述符(数字)，stdin,stdout和stderr的文件描述符(fd)分别为0,1,2。管道(pipe)本质上就是一个重定向的工具，它可以将一个程序的输出作为另外一个程序的输入，它是unix最强大的魔法师，通过管道，unix的各种命令才得以相互协同一起工作。
+
+# begin examples
+
+# 将标准错误(stderr)重定向到标准输出(stdout)
+some-command 2>&1
+
+# 将标准错误重定向到errors.txt文件里
+some-command 2> errors.txt
+
+# 禁止所有输出，包括stderr
+some-command > /dev/null 2>&1
+
+# 将命令的输出同时打印到文件.选项a表明是追加内容到文件末尾
+some-command 2>&1 | tee -a output.txt
+
+# 将一个文件的内容作为一个程序的输入,一般情况下，很多程序可同时支持stdin和普通文件作为输入，如grep.因此我们在grep某个文件的内容时无需使用重定向输入符号(<).支持stdin的最大好处在于可通过管道将多个命令串起来。
+some-command < some-file
+
+# 上面的例子往往写成下面这样，更加流行
+cat some-file | some-command
+
+# 下面的例子演示了一个完整的通过重定向如何操作文件
+echo 123450 > /tmp/Some_File # 向文件File中写入字符串
+exec 3<> /tmp/Some_File      # 在文件描述符3上打开文件File
+read -n 4 <&3                # 读取4个字符
+echo -n . >&3                # 写入一个小数点
+exec 3>&-                    # 关闭打开的文件
+cat /tmp/Some_File           # 输出文件内容 1234.0
+rm /tmp/Some_File            # 删除文件File
+
+# 将所有txt文件的内容合并排序排重最后保存为result-file
+cat *.txt | sort | uniq > result-file
+
+# end examples
