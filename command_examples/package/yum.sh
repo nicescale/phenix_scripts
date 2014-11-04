@@ -1,28 +1,31 @@
-# To install the latest version of a package:
-yum install <package name>
+#!/bin/bash
 
-# To perform a local install:
-yum localinstall <package name>
+# yum是RedHat系Linux下管理rpm软件包依赖关系的工具，类似apt-get
 
-# To remove a package:
-yum remove <package name>
+# begin examples
 
-# To search for a package:
-yum search <package name>
+# 安装一个最新版本的软件包
+yum install package
 
-# To find what package installs a program:
-yum whatprovides </path/to/program>
+# 删除一个软件包
+yum remove package
 
-# To find the dependencies of a package:
-yum deplist <package name>
+# 搜索软件包
+yum search package
 
-# To find information about a package:
-yum info <package name>
+# 查找program文件属于哪个包
+yum whatprovides /path/to/program
 
-# List currently enabled repositories:
+# 找出包的依赖关系
+yum deplist package
+
+# 显示包的详细信息
+yum info package
+
+# 列出当前在使用的yum仓库
 yum repolist
 
-# To download the source RPM for a package:
+# 下载src.rpm文件
 yumdownloader --source <package name>
 
-# (You have to install yumdownloader first, which is installed by the yum-utils package)
+# end examples
