@@ -1,0 +1,6 @@
+# begin examples
+
+# pstree用来显示进程树，可以用ps axjf达到类似效果
+pstree -p
+
+# end examples
