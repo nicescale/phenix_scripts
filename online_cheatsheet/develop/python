@@ -1,0 +1,8 @@
+# Python v2.7支持简单的http server
+python -m SimpleHTTPServer
+
+# 同上，Python 3以上版本运行方式
+python -m http.server 8000
+
+# 打印json
+python -mjson.tool

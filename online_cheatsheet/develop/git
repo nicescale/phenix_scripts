@@ -1,0 +1,53 @@
+# 设置你的git帐号, push/pull会用做认证
+git config --global user.name "John Doe"
+git config --global user.email johndoe@example.com
+
+# 设置编辑器
+git config --global core.editor emacs
+
+# 设置彩色
+git config --global color.ui true
+
+# 添加所有的变化，准备commit提交
+git add --all
+
+# 将添加进来的变化(staged)提交(commit)到本地git
+git commit -m "Your commit message"
+
+# 编辑上一次提交的message
+git commit --amend
+
+# To removed staged and working directory changes
+git reset --hard
+
+# 删除未跟踪的文件(就是文件或目录没有add过)
+git clean -f -d
+
+# 将代码push到master分支
+git push origin master
+
+# push到一个特定的仓库
+git push git@github.com:username/project.git
+
+# 删除一个分支
+git branch -D branch_name
+
+# 查看谁提交过filename，以及具体的修改
+git blame filename
+
+# 同步一个git仓库到本地
+mkdir gitdemo                                           # 创建一个git仓库目录
+git init                                                # 初始化git
+git remote add upstream git@github.com:name/repo.git    # 设置一个新仓库
+git remote -v                                           # 确认一下新的仓库
+git fetch upstream                                      # 获取仓库的所有分支
+git branch -va                                          # 列出本地和远端的分支
+git checkout master                                     # 签出本地的master分支
+git checkout -b new_branch                              # 创建并签出一个新的分支
+git merge upstream/master                               # 将远端分支合并到本地
+git show 83fb499                                        # 查看某一次提交的详细信息
+git show 83fb499:path/fo/file.ext                       # 查看某一次提交的某个具体文件
+git diff branch_1 branch_2                              # 对两个分支做diff比较
+git log                                                 # 查看所有提交记录
+git status                                              # 查看当前git的状况
+

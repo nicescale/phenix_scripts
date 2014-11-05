@@ -1,0 +1,14 @@
+# 非交互式dump数据库
+mysqldump -uusername -ppassword the-database > db.sql
+
+# 密码交互式dump
+mysqldump -uusername -p the-database > db.sql
+
+# 以gzip保存
+mysqldump -uusername -ppassword the-database | gzip -9 > db.sql.gz
+
+# 备份数据库所有的db
+mysqldump --all-databases --all-routines -u root -p > ~/fulldump.sql
+
+# 仅仅导出表的描述等，不导出数据
+mysqldump --no-data -uusername -p the-database > dump_file

@@ -1,0 +1,20 @@
+# 查看php版本
+php -v
+
+# 显示php的所有模块
+php -m
+
+# 查看phpinfo()
+php -i
+
+# 仅仅语法检查
+php -l file.php
+
+# lint所有php文件，语法检查
+find . -name "*.php" -print0 | xargs -0 -n1 -P8 php -l
+
+# 交互式php shell
+php -a
+
+# 默认php.ini路径
+php -i | grep "php.ini"

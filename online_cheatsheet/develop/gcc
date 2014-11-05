@@ -1,0 +1,17 @@
+# 编译产生a.out
+gcc file.c
+
+# 编译时指定输出的文件名
+gcc -o file file.c
+
+# debug模式
+gcc -g
+
+# 带上所有debug符号
+gcc -ggdb3
+
+# 以64位编译
+gcc -m64
+
+# 将自定义lib加入include目录
+gcc -isystem /usr/include/myPersonnal/lib/

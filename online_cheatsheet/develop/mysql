@@ -1,0 +1,14 @@
+# 连接mysql数据库
+mysql -h localhost -u root -p
+
+# 备份数据库所有的db
+mysqldump --all-databases --all-routines -u root -p > ~/fulldump.sql
+
+# 恢复数据库
+mysql -u root -p  < ~/fulldump.sql
+
+# 创建一个utf8字符集数据库
+CREATE DATABASE mydb CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+# 给mydb创建用户并授权mydb库的所有管理权限给user
+GRANT ALL PRIVILEGES ON mydb.* TO 'user'@'localhost'IDENTIFIED BY 'password' WITH GRANT OPTION;
