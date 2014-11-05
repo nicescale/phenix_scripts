@@ -1,0 +1,22 @@
+
+# 创建一个无压缩的归档文件
+tar -cvf foo.tar foo/
+
+# 解包一个未压缩的归档文件, 选项D表示解包到指定目录，否则是解包到本目录下
+tar -xvf foo.tar
+tar -xvf foo.tar -C ./bar
+
+# 创建一个压缩归档文件,选项z对应gzip, j对应bzip2, X对应compress
+tar -czvf foo.tgz foo/
+tar -cjvf foo.tar.bz2 foo/
+
+# 解压一个压缩归档文件,选项z对应gzip,j对应bzip2,X对应compress
+tar -xzvf foo.tgz
+tar -xjvf foo.tar.bz2
+
+# 列出压缩归档文件里的文件列表
+tar -ztvf foo.tgz
+tar -jtvf foo.tar.bz2
+
+# 创建一个tgz压缩文件，但jpg,gif等文件除外
+tar czvf foo.tgz --exclude=\*.{jpg,gif,png,wmv,flv,tar.gz,zip} foo/

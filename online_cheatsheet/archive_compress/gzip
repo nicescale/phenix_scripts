@@ -1,0 +1,16 @@
+# 压缩文件demo_file并替代原来的文件为demo_file.gz
+gzip demo_file
+
+# 压缩文件demo_file但不覆盖原来的文件
+gzip -c demo_file1 > demo_file1.gz
+
+# 递归压缩一个目录下所有文件，且会覆盖里面的文件为filename.gz
+gzip -r demo_dir
+
+# 解压文件demo_file.gz,并替代原来的压缩文件为demo_file
+gzip -d demo_file.gz
+
+# 解压文件demo_file1.gz，但不覆盖原来的压缩文件
+gzip -d -c demo_file1.gz > demo_file2
+zcat demo_file1.gz > demo_file3
+
