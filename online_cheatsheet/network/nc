@@ -1,0 +1,18 @@
+# nc是一个简单强大的支持tcp/udp连接和监听的工具
+
+# 在源端口31337连接host.example.com:42，连接超时5s
+nc -p 31337 -w 5 host.example.com 42
+
+# 连接dns53端口,udp模式
+nc -u host.example.com 53
+
+# 指定源ip连接
+nc -s 10.1.2.3 host.example.com 42
+
+# 创建一个unix socket
+nc -lU /var/tmp/dsocket
+
+# 使用socks代理连接host.example.com
+nc -x10.2.3.4:8080 -Xconnect host.example.com 42
+
+

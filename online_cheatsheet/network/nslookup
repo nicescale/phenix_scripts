@@ -1,0 +1,35 @@
+# nslookup 是internet名字查询的标准工具
+
+# 查询一个域名的ip
+nslookup nicescale.com
+
+# 输出如下
+Server:   127.0.0.1
+Address:  127.0.0.1#53
+
+Non-authoritative answer:
+Name: nicescale.com
+Address: 117.121.26.243
+
+上面的Non-authoritative的意思是127.0.0.1:53
+这个dns是cache dns，并非权威dns.
+
+# 反向查询一个ip的域名
+nslookup 117.121.26.243
+
+# 查询看邮箱mx记录指向
+nslookup -query=mx nicescale.com
+
+# 查询邮箱spf设置
+nslookup -query=txt nicescale.com
+
+# 查询域名用的dns服务器
+nslookup -query=ns nicescale.com
+
+# 查询soa,超时10s
+nslookup -type=soa nicescale.com -timeout=10
+
+# 查询所有
+nslookup -type=any nicescale.com
+
+

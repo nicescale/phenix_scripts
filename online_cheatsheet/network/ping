@@ -1,0 +1,20 @@
+# 最常见的网络探测工具
+
+# 每隔5秒ping一次
+ping -i 5 baidu.com
+
+# flood ping,谨慎使用
+ping -i 0.1 baidu.com
+
+# 指定发送的包数
+ping -c 5 baidu.com
+
+# 指定发送的时间,-w 5秒后退出, -W是设置超时
+ping -w 5 -W 3 baidu.com
+
+# 改变包的大小，默认是56字节, ping的header为28字节
+ping -s 1024 baidu.com
+
+# 显示ping的hop节点
+ping -R 123.125.114.144
+

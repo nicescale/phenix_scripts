@@ -1,0 +1,67 @@
+# dig 是一个域名查询和分析的工具
+
+# 查看一个域名的A或CNAME记录解析
+dig nicescale.com
+
+输出：
+
+; <<>> DiG 9.8.1-P1 <<>> @f1g1ns1.dnspod.net nicescale.com
+; (4 servers found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 8156
+;; flags: qr aa rd; QUERY: 1, ANSWER: 1, AUTHORITY: 2, ADDITIONAL: 0
+;; WARNING: recursion requested but not available
+
+;; QUESTION SECTION:
+;nicescale.com.     IN  A
+
+;; ANSWER SECTION:
+nicescale.com.    600 IN  A 117.121.26.243
+
+;; AUTHORITY SECTION:
+nicescale.com.    600 IN  NS  f1g1ns1.dnspod.net.
+nicescale.com.    600 IN  NS  f1g1ns2.dnspod.net.
+
+;; Query time: 47 msec
+;; SERVER: 183.60.52.217#53(183.60.52.217)
+;; WHEN: Wed Nov  5 18:06:19 2014
+;; MSG SIZE  rcvd: 111
+
+# dig的输出分为4个部分:
+HEADER: 显示dig版本，命令行选项以及其他一些信息
+QUESTION: 这里显示问题，即我们刚才询问了nicescale.com的A记录
+ANSWER: 答案，nicescale.com的A记录指向117.121.26.243
+AUTHORITY: 权威dns，如果是缓存dns解析，则往往缺少该段落
+ADDITIONAL: 附属段落，如果没有权威段落，则没有附属段落，显示权威dns的ip
+Stats: 最后一个统计段落会显示查询花费的时长
+
+# 仅仅显示answer段落
+dig nicescale.com +nocomments +noquestion +noauthority +noadditional +nostats
+
+# 查询MX记录
+dig nicescale.com MX +noall +answer
+dig -t MX nicescale.com +noall +answer
+
+# 查询NS记录
+dig -t NS nicescale.com +noall +answer
+
+# 查询所有类型记录
+dig -t ANY nicescale.com +noall +answer
+
+# 获得最精简的输出 +short,常用于写脚本避免过多注释
+dig nicescale.com +short
+
+# dns反向查询
+dig -x 117.121.26.243 +short
+
+# 指定dns服务器进行查询
+dig @f1g1ns1.dnspod.net nicescale.com
+
+# 批量查询
+dig -f names.txt +short
+echo nicescale.com google.com yahoo.com | dig -f - +short
+
+# 跟踪模式，显示从root dns开始的每个查询步骤，常用于排障
+dig +trace nicescale.com
+
