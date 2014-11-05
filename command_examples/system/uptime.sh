@@ -1,6 +1,0 @@
-#!/bin/bash
-
-set -e
-
-# uptime是一个显示机器开机时长，最近负载的小工具
-uptime
