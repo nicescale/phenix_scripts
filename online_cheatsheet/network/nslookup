@@ -31,5 +31,3 @@ nslookup -type=soa nicescale.com -timeout=10
 
 # 查询所有
 nslookup -type=any nicescale.com
-
-

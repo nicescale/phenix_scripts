@@ -1,0 +1,17 @@
+# 锁定用户
+usermod -L bob
+
+# 解锁
+usermod -U bob
+
+# 更改home目录
+usermod -d /home/newbob bob
+
+# 更改home目录并同时将旧的home数据移动
+usermod -m -d /home/newbob bob
+
+# 设定账户过期
+usermod -e 2015-08-01 bob
+
+# 修改登录shell
+usermod -s /bin/false mysql
