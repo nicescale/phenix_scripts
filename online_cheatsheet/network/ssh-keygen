@@ -1,0 +1,11 @@
+# 生成RSA的key
+ssh-keygen -t rsa
+
+# 生成4096位的RSA Key
+ssh-keygen -t rsa -b 4096
+
+# 修改Key的passphrase
+ssh-keygen -p -P old_passphrase -N new_passphrase -f /path/to/keyfile
+
+# 删除掉passphrase
+ssh-keygen -p -P old_passphrase -N '' -f /path/to/keyfile

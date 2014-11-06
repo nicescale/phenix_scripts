@@ -1,0 +1,17 @@
+# 使用key登录服务器
+ssh -i /path/to/file.pem user@example.com
+
+# ssh server监听在2222端口
+ssh -p 2222 user@example.com
+
+# 执行远程命令
+ssh -t user@example.com 'the-remote-command'
+
+# socks代理，监听在本机127.0.0.1:9999端口
+ssh -D 9999 -Nf user@example.com
+
+# 本地转发服务，将远端mysql服务的3306端口映射到本机3306
+# gateway.com服务器与192.168.100.9内网互通
+ssh -L 3306:192.168.100.9:3306 user@gateway.com
+mysql -h 127.0.0.1 -P 3306 -p
+
