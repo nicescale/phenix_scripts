@@ -1,0 +1,27 @@
+# 添加一个用户,默认处于锁定状态，必须设置password后才会解锁
+useradd nicescale
+
+# 指定home目录创建用户，默认是/home/USERNAME
+useradd -m -d /var/lib/mysql mysql
+
+# 指定uid/gid创建用户
+groupadd -g 3306 mysql
+useradd -u 3306 -g 3306 mysql
+
+# 将用户加入到多个组
+useradd -G log,admin jack
+
+# 不创建home目录
+useradd -M jack
+
+# 获取用户的uid/gid
+id jack
+id -u jack
+id -g jack
+
+# 指定过期日期创建账户
+useradd -e 2015-05-05 nicescale
+useradd -e 2014-04-27 -f 45 nicescale
+
+# 创建非登录用户
+useradd -M -s /sbin/nologin -u 80 www

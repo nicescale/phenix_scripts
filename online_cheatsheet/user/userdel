@@ -1,0 +1,5 @@
+# 删除用户
+userdel jack
+
+# 删除用户时，同时删除home和邮件池的数据
+userdel -r jack

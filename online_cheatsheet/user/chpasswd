@@ -1,0 +1,2 @@
+# 非交互式修改用户密码
+echo ubuntu:passw0rd | chpasswd

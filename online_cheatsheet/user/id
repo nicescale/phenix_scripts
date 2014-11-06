@@ -1,0 +1,4 @@
+# 查看用户的uid/gid
+id user
+id -u user
+id -g user

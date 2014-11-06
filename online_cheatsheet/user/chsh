@@ -1,0 +1,2 @@
+# 修改某个用户的登录shell
+chsh -s /bin/bash user

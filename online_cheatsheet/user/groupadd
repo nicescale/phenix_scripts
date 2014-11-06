@@ -1,0 +1,5 @@
+# 添加一个redis的组 
+groupadd redis
+
+# 添加一个redis组，且指定gid为6379
+groupadd redis -g 6379
