@@ -1,0 +1,7 @@
+# ab是apache测试工具，用来测试http的响应
+
+# 并发50，一共发出10000请求
+ab -n 10000 -c 50 http://www.example.com/
+
+# 并发50压测，30秒后停止
+ab -t 30 -c 50 http://www.example.com/
