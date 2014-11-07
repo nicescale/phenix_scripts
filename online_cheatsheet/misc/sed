@@ -1,0 +1,73 @@
+# sed是一个流编辑器，可用来非交互式地编辑文件，适合脚本处理。可用于字符查找替换、插入、删除等
+
+# 替换字符串，用night替换day，只显示到屏幕
+sed 's/day/night/g' file.txt
+
+# 同上，但会应用到文件file.txt
+sed -i 's/day/night/g' file.txt
+
+# sed支持从管道读入数据
+echo 'It is daytime' | sed 's/day/night/g'
+
+# 删除以空格开头的连续空格字符串
+sed -i -r 's/^\s+//g' file.txt
+
+# 删除空行
+sed '/^$/d' file.txt
+
+# 使用下划线_作为分割符，避免了过多转义
+sed ‘s_/var/ftp/pup_/opt/ftp/com_’ test.txt
+
+# 将surendra替换成Mr. Surendr
+sed ‘s/Surendra/Mr. &/’ test.txt
+
+# 向后引用，输出suri123ab
+echo abc123suri | sed -e 's/\([a-z]*\)\([0-9]*\)\([a-z]*\)/\3\2\1/g'
+
+# -n,p, 输出到屏幕
+cat file | sed -n 's/surendra/bca/p'
+
+# 多次连续的操作
+sed -e 's/abc/def/g' -e 's/io/ab/g' -e 's/xx/yy/g' file
+sed 's/abc/def/;s/aaa/ccc/;/xyz/d' file
+
+# 删除行
+sed '3d' file                  # 删除第3行
+sed '3,7 d' file               # 删除3到7行
+sed '/abc/,/xyz/ d' file       # 删除从abc到xyz的之间的所有行
+sed '/abc/,/xyz/ !d' file      # 除了夹在abc和xyz之间的行，其余删除
+
+# 在特定行前面插入行
+sed '2i nicescale' file        # 在第2行前面插入
+sed '/abc/i nicescale' file    # 在包含abc行的前面
+sed '/abc/ !i nicescale' file  # 在没有abc行的前面插入
+
+# 在特定行后面追加插入
+sed '2a nicescale' file        # 在第2行后面插入
+sed '/abc/a nicescale' file    # 在包含abc行的后面
+sed '/abc/,5 a nicescale' file # 在abc到第5行中间的每一行后面，插入nicescale
+
+# 指定行替换
+sed '3 s/abc/xyz/' file        # 在第三行搜索abc并替换为xyz
+sed '3,7 s/abc/xyz/' file      # 在第3到7行替换abc为xyz
+sed '5,$ s/abc/xyz/' file      # 第5行到最末尾搜索替换abc为xyz
+
+# 将两行合并为一行
+cat file
+1 surendra audi
+
+2 kumar nudi
+
+3 mouni surendra
+
+4 baby dudy
+
+cat file | 'N;s/\n//'
+1 surendra audi
+2 kumar nudi
+3 mouni surendra
+4 baby dudy
+
+# 删除换行符
+sed ':a;N;$!ba;s/\n//g'  file.txt
+

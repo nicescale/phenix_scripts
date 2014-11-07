@@ -1,0 +1,16 @@
+# 将多个文件按列合并，中间用<tab>分隔
+$ cat name.txt
+jack
+jhon
+susan
+tom
+$ cat score.txt
+75
+85
+100
+50
+$ paste name.txt score.txt
+jack  75
+jhon  85
+susan 100
+tom   50

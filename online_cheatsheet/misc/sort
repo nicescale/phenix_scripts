@@ -1,0 +1,26 @@
+# 按行进行排序
+sort file
+
+# 排重，相同的行只输出一次
+sort -u file
+
+# 降序
+sort -r file
+
+# 随机排序
+sort -R file
+
+# 指定第三列排序，默认以空格为分隔，-t可指定。
+sort -t: -k3 file
+
+# 按数字排序
+du -s * | sort -n
+
+# 效果同上，但-h可识别k,M,G等
+du -sh * | sort -h file
+
+# 按月份排序,(unknown) < `JAN' < ... < `DEC'
+sort -M filename.txt
+
+# 查看来源ip访问频率
+tail -n 50000 apache-access.log | awk '{print $1}' | sort | uniq -c | sort -n

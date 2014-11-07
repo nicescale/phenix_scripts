@@ -1,0 +1,6 @@
+# 删除.c结尾的文件
+find -name *.c -print0 | xargs -0 rm -rf
+
+# 安全地输出每个文件内容
+ls *.txt | xargs -I{} cat {}
+

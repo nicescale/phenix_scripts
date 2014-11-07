@@ -1,0 +1,8 @@
+# 以8进制打印文件内容
+od /path/to/binaryfile
+od -o /path/to/binaryfile
+od -t o2 /path/to/binaryfile
+
+# 以16进制打印文件
+od -x /path/to/binaryfile
+od -t x2 /path/to/binaryfile

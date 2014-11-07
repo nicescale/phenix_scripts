@@ -1,0 +1,6 @@
+# rev是一个将字母颠倒过来的工具
+echo abcd | rev
+dcba
+
+# 将每一行的字母颠倒
+rev demo.txt

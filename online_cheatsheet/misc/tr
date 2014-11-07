@@ -1,0 +1,33 @@
+# tr是字符转换工具
+
+# 将小写转大写
+$ echo NiceScale | tr abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ
+$ echo NiceScale | tr a-z A-Z
+NICESCALE
+
+# 将大写转小写
+$ echo NiceScale | tr ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz
+$ echo NiceScale | tr A-Z a-z
+nicescale
+
+# 将file1.txt中的{}全部完成()
+$ cat file1.txt | tr '{}' '()' > file2.txt
+
+# 将空格换成制表符<tab>
+$ echo "This is for testing" | tr [:space:] '\t'
+
+# 删除特定字符
+$ echo NiceScaleing | tr -d 'ing'
+NiceScale
+$ echo "my username is 432234" | tr -d [:digit:]
+my username is
+
+# 反向操作(求补集),选项"-c"
+$ echo "my username is 432234" | tr -cd [:digit:]
+432234
+
+# 删除所有不可打印字符
+tr -cd [:print:] < file.txt
+
+# 将换行符替换成空格，如多个连续换行符，只替换为一个空格(-s选项)
+tr -s '\n' ' ' < file.txt
