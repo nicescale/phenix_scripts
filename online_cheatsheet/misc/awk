@@ -128,8 +128,6 @@ $ awk '(NR>4){print $3}' db.txt
 21
 21
 
-Example13: Want to print something other than file content at the start of the output?. We can use inbuilt Block called BEGIN block. Suppose I want to print “This is the filtered output” use below code.
-
 # 在开头输出一行提示
 $ awk 'BEGIN{print "This is the filtered output"}(NR>4){print $3}' db.txt
 输出:
