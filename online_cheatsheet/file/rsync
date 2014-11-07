@@ -1,0 +1,16 @@
+# rsync是一个高效灵活的文件传输工具，可用来做文件备份、文件上下传、代码发布等
+
+# 从远端服务器foo递归拷贝src/bar下的所有文件到本地的/data/tmp/bar. 选项a表明会维持文件属性和符号链接不变,z表明传输过程中通过压缩加快传输速度,v表明会打印出详细的输出下
+rsync -avz foo:src/bar /data/tmp
+
+# 和上面的例子恰好相反，将本地目录/data/tmp/bar下的文件递归拷贝到foo机器的src/bar目录下去.
+rsync -avz /data/tmp/bar foo:src/
+
+# 将/source目录下的文件备份到/dest下。使用checksum(-c)而不是mtime判定文件是否发生变化。注意/source后面必须跟随/，否则会在/dest目录下创建source目录并将/source下的内容拷贝到/dest/source/下。
+rsync -avc /source/ /dest/
+
+# 拷贝/src下的foo目录到/dest下，注意foo后面没有跟随/.u选项表明使用mtime时间来判断文件是否发生变化。
+rsync -auv /src/foo /dest
+
+# 拷贝/src/foo/下的文件到/dest/goo目录下
+rsync -auv /src/foo/ /dest/goo
