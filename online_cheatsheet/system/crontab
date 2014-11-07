@@ -20,3 +20,9 @@ SHELL=/bin/bash
 
 # 每周六早晨8:05执行
 5 8 * * 6 /home/user/command.sh
+
+# 查看某个用户的crontab设置
+crontab -l -u root
+
+# 查看系统的crontab
+cat /etc/crontab
