@@ -4,7 +4,7 @@
 some-command 2>&1
 
 # 将标准错误重定向到errors.txt文件里
-some-command 2> errors.txt
+some-command 2 >> errors.txt
 
 # 禁止所有输出，包括stderr
 some-command > /dev/null 2>&1
