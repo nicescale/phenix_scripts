@@ -1,0 +1,29 @@
+# 查看2个文件的差别
+diff -u version1 version2
+
+# 查看2个目录下的差别
+diff -ur folder1/ folder2/
+
+# 忽视空格
+diff -ub version1 version2
+
+# 忽视空行
+diff -uB version1 version2
+
+# 忽视大小写
+diff -ui version1 version2
+
+# 报告2个文件是否不同
+diff -q version1 version2
+
+# 报告2个文件是否相同
+diff -s version1 version2
+
+# 比较2个命令的输出差异
+diff <(command1) <(command2)
+
+# 生成补丁文件
+diff -rupN original new > original.patch
+
+# 应用补丁
+cd original && patch -p1 < original.patch

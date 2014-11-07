@@ -1,0 +1,16 @@
+# 打印文件内容
+cat file
+
+# 复制文件
+cat file > file1
+
+# 读取一段文字生成文件
+cat <<EOF > file
+abc
+def
+ghi
+EOF
+
+# 连接多个文件为一个文件
+cat file1 file2 file3 > file
+

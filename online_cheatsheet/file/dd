@@ -1,0 +1,6 @@
+# 生成一个可增长的文件，初始大小为0
+dd if=/dev/zero of=out.img count=0 seek=1024 bs=1M
+
+# 备份一个分区
+dd if=/dev/sda1 of=/backup/sda1.img
+

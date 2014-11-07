@@ -1,0 +1,9 @@
+# 创建目录，如果foo/bar不存在会自动创建
+mkdir -p foo/bar/baz
+
+# 在foo下创建bar,baz两个文件，注意在ubuntu的dash下无效
+mkdir -p foo/{bar,baz}
+
+# 创建 foo/bar, foo/baz, foo/baz/zip和foo/baz/zap目录
+mkdir -p foo/{bar,baz/{zip,zap}}
+

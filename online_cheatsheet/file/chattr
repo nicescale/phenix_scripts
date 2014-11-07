@@ -1,0 +1,2 @@
+# 将文件加上锁
+chattr +i file

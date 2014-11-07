@@ -1,0 +1,8 @@
+# 递归删除一个目录，危险！
+rm -rf path/to/the/target/
+
+# 限制删除一个文件
+rm -f path/to/the/target
+
+# 根据link node号删除文件
+find /tmp/ -inum 6666 -exec rm -i '{}' \;

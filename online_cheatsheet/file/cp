@@ -1,0 +1,10 @@
+# cp是最常见的文件拷贝命令
+
+# 复制文件
+cp srcfile destfile
+
+# 复制目录srcdir到/backup/下面
+cp -r srcdir /backup/
+
+# 备份一个目录，保留所有属性
+cp -r --preserve=all srcdir /backup/

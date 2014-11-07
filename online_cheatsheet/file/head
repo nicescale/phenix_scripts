@@ -1,0 +1,11 @@
+# 打印文件前10行
+head file
+
+# 打印前50行
+head -n 50 file
+
+# 打印前50字节
+head -c 50 file
+
+# 除了最后50行，全部打印
+head -n -50 file

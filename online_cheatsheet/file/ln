@@ -1,0 +1,8 @@
+# 创建符号连接
+ln -s targetfile symlink
+
+# 强制创建，如synlink存在覆盖
+ln -sf targetfile symlink
+
+# 创建hardlink,不可跨分区
+ln target hardlink

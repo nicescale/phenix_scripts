@@ -1,0 +1,18 @@
+# 显示最后10行
+tail file
+
+# 显示最后500行
+tail -n 500 file
+
+# 显示自第50行以下所有的行数
+tail -n +50 file
+
+# 显示最后50字节
+tail -c 50 file
+
+# 等待文件继续输出
+tail -f file
+
+# 显示文件的第50到80行内容
+tail -n +50 file | head -n 30
+sed -n '50,80 p' file

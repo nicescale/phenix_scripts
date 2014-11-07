@@ -1,0 +1,35 @@
+# 文件权限分为r(读)、w(写)、x(执行)
+
+# 所有用户都具有执行权限
+chmod a+x myscript.sh
+
+# 对owner拥有所有权限(rwx)，其他的只读
+chmod u=rwx, go=r myscript.sh 
+
+# 删除写权限，对所有人
+chmod a-w myscript.sh
+
+# owner可读写，其他只读
+chmod 644 myscript.sh
+
+# 可执行文件
+chmod 755 myscript.sh
+
+# 所有人都可写
+chmod 666 myscript.sh
+
+# 角色
+u - user (文件属主)
+g - group (文件属组)
+o - global (其他所有人)
+a - all (包含上面3种)
+
+# 0-7数字代表的含义
+7 - full (rwx)
+6 - read and write (rw-)
+5 - read and execute (r-x)
+4 - read only (r--)
+3 - write and execute (-wx)
+2 - write only (-w-)
+1 - execute only (--x)
+0 - none (---)

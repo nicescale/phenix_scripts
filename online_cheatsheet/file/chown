@@ -1,0 +1,8 @@
+# 修改文件的用户
+chown user file
+
+# 修改文件的用户和组
+chown user:group file
+
+# 递归修改目录的用户
+chown -R user directory

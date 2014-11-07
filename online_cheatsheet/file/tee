@@ -1,0 +1,7 @@
+# tee是一个将标准输入同时重定向到stdout和文件的工具
+
+# 除了输出到屏幕，还写入到outfile.txt
+ls | tee outfile.txt
+
+# 追加写
+ls | tee -a outfile.txt

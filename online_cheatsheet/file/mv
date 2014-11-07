@@ -1,0 +1,8 @@
+# 改文件名
+mv a.txt b.txt
+
+# 移动文件
+mv /path/to/file  /dest/to/file
+
+# 移动多个文件到一个目录
+mv /path/to/* /dest/to/

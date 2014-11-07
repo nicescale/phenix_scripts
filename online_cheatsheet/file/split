@@ -1,0 +1,10 @@
+# 分割文件工具
+
+# 将文件分割成1000行一个的小文件
+split file.txt -l 1000
+
+# 将文件分割成10MB一个的小文件
+split file.txt -b 10M
+
+# 将分割的小文件合并为一个大文件
+cat x* > file.txt

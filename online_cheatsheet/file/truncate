@@ -1,0 +1,9 @@
+# 指定大小截断文件
+truncate -s 0 file.txt
+
+# 截断为100字节
+truncate -s 100 file.txt
+
+# 截为100KB
+truncate -s 100K file.txt
+
