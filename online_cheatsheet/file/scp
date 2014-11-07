@@ -1,0 +1,8 @@
+# 拷贝foo.txt到远端服务器
+scp foo.txt user@example.com:remote/dir
+
+# 从远端服务器拷贝文件到本地
+scp user@example.com:remote/dir/foo.txt local/dir
+
+# 拷贝foo目录到远端服务器的HOME目录下
+scp -r foo/ user@example.com:~/
