@@ -1,0 +1,8 @@
+# 生成2048位的rsa key文件
+openssl genrsa -out server.key 2048
+
+# 生成证书
+openssl req -new -key server.key -out server.csr
+
+# 利用key和csr生成x509 crt证书
+openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt

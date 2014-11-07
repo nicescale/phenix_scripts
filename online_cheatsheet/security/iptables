@@ -1,0 +1,30 @@
+# 查看iptables的filter表
+iptables -Lnv
+
+# 查看nat表
+iptables -t nat -Lnv
+
+# 对nmap隐藏端口
+iptables -A INPUT -i eth0 -p tcp --dport 902 -j REJECT --reject-with icmp-port-unreachable
+
+# Note, --reject-with accept:
+#	icmp-net-unreachable
+#	icmp-host-unreachable
+#	icmp-port-unreachable <- Hide a port to nmap
+#	icmp-proto-unreachable
+#	icmp-net-prohibited
+#	icmp-host-prohibited or
+#	icmp-admin-prohibited
+#	tcp-reset
+
+# 封禁端口8080
+iptables -I INPUT -p tcp --dport 80 -j DROP
+
+# 删除INPUT链的一条规则
+iptables -D INPUT -i eth0 -p tcp --dport 902 -j REJECT --reject-with icmp-port-unreachable
+
+# 删除第2行
+iptables -D INPUT 2
+
+# 插入一条规则
+iptables -I INPUT -i eth1 -p tcp --dport 21 -s 123.123.123.123 -j ACCEPT 
