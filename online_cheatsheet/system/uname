@@ -22,3 +22,6 @@ uname -s
 
 # 打印操作系统，在linux下一般输出为GNU/Linux
 uname -o
+
+# 打印硬件平台
+uname -i

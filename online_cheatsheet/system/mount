@@ -31,3 +31,9 @@ umount /mountpoint
 
 # 强行卸载
 umount -L /mountpoint
+
+# 查看mount 结果，用表格形式输出
+mount | column -t
+
+# 挂载一个光盘镜像到/mnt/cdrom
+mount  -o loop -t iso9660 my.iso /mnt/cdrom
