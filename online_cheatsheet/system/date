@@ -1,14 +1,36 @@
 # 打印本地时间
 date
+Mon Nov 10 00:35:50 CST 2014
 
 # 打印utc时间
 date -u
+Sun Nov  9 16:40:38 UTC 2014
 
 # 今年过去了多少天
 date +%j
+314
 
 # 用日期作为文件后缀
 file_suffix=$(date +"%Y%m%d_%H%M%S")
 
 # 自从1970年1月1日0点，到现在的秒数，经常用作临时文件后缀
 date +%s
+
+# 把指定日期按照特定的格式输出
+date --date "Apr 8 2008" +%A
+Tuesday
+
+# date 命令格式说明
+Weekday                      %a       (for example:. Sat)
+                             %A       (for example: Saturday)
+Month                        %b       (for example: Nov)
+                             %B       (for example: November)
+Day                          %d       (for example: 31)
+Date in format (mm/dd/yy)    %D       (for example: 10/18/10)
+Year                         %y       (for example: 10)
+                             %Y       (for example: 2010)
+Hour                         %I or %H (for example: 08)
+Minute                       %M       (for example: 33)
+Second                       %S       (for example: 10)
+Nano second                  %N       (for example:695208515)
+epoch UNIX time in seconds   %s       (for example: 1290049486)

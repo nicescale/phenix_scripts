@@ -26,3 +26,12 @@ crontab -l -u root
 
 # 查看系统的crontab
 cat /etc/crontab
+
+# 指定输出结果发送的邮箱
+# 如果目标地址ping不通，则发送邮件
+MAILTO="example@mail.com"
+10,30,50 * * * * ping -c1 -w3 192.168.1.1 >/dev/null 
+
+#或者不发送给任何人结果
+MAILTO=""
+* * * * * echo hello
