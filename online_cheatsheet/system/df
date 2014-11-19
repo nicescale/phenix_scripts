@@ -1,5 +1,16 @@
 # df用来打印出磁盘使用情况, -h表示更适合人阅读的方式
 df -h
+<!--
+文件系统        容量  已用  可用 已用% 挂载点
+/dev/sda5        92G   18G   70G   21% /
+none            4.0K     0  4.0K    0% /sys/fs/cgroup
+udev            2.0G  4.0K  2.0G    1% /dev
+tmpfs           392M  1.3M  391M    1% /run
+none            5.0M  4.0K  5.0M    1% /run/lock
+none            2.0G   22M  1.9G    2% /run/shm
+none            100M   36K  100M    1% /run/user
+/dev/sda1       180M   96M   72M   58% /boot
+-->
 #--total 显示系统总容量 
 df -h  --total
 <!--
