@@ -21,6 +21,7 @@ date --date "Apr 8 2008" +%A
 Tuesday
 
 # date 命令格式说明
+<!--
 Weekday                      %a       (for example:. Sat)
                              %A       (for example: Saturday)
 Month                        %b       (for example: Nov)
@@ -34,3 +35,4 @@ Minute                       %M       (for example: 33)
 Second                       %S       (for example: 10)
 Nano second                  %N       (for example:695208515)
 epoch UNIX time in seconds   %s       (for example: 1290049486)
+-->
