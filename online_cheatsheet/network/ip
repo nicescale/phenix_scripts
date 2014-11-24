@@ -1,32 +1,43 @@
 # Display all interfaces with addresses
+# 显示所有网络接口的ip地址
 ip addr
 
 # Take down / up the wireless adapter
+# 关闭wlan0网卡
 ip link set dev wlan0 {up|down}
 
 # Set a static IP and netmask
+# 设置一个静态ip
 ip addr add 192.168.1.100/32 dev eth0
 
 # Remove a IP from an interface
+# 移除一个网络接口的指定ip地址
 ip addr del 192.168.1.100/32 dev eth0
 
 # Remove all IPs from an interface
+#移除一个网络接口的所有ip地址
 ip address flush dev eth0
 
 # Display all routes
+# 显示本机路由
 ip route
 
 # Display all routes for IPv6
+# 显示所有IPV6的路由
 ip -6 route
 
 # Add route via gateway IP
+# 添加一条路由指定下一跳的ip
 ip route add 192.168.0.0/24 via 192.168.1.1
 
 # Add route via interface
+# 添加一条路由指定吓一跳的网络接口
 ip route add 192.168.0.0/24 dev eth0
 
 # Change your mac address 
+# 改变一个网卡的mac地址
 ip link set dev eth0 address aa:bb:cc:dd:ee:ff
 
 # View neighbors (using ARP and NDP) 
+# 查询邻居 ，通过APR和NDP协议
 ip neighbor show

@@ -1,6 +1,27 @@
 # Single target scan:
+# 扫描一个特定主机
 nmap [target]
+<!--
+➜   nmap nicescale.com
 
+Starting Nmap 6.46 ( http://nmap.org ) at 2014-11-24 17:18 CST
+Nmap scan report for nicescale.com (117.121.26.243)
+Host is up (0.47s latency).
+Not shown: 991 filtered ports
+PORT     STATE  SERVICE
+22/tcp   open   ssh
+23/tcp   open   telnet
+24/tcp   closed priv-mail
+25/tcp   closed smtp
+26/tcp   closed rsftp
+80/tcp   open   http
+443/tcp  open   https
+873/tcp  closed rsync
+5000/tcp closed upnp
+
+Nmap done: 1 IP address (1 host up) scanned in 47.27 seconds
+
+-->
 # Scan from a list of targets:
 nmap -iL [list.txt]
 
