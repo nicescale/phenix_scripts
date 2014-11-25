@@ -31,7 +31,7 @@ ip -6 route
 ip route add 192.168.0.0/24 via 192.168.1.1
 
 # Add route via interface
-# 添加一条路由指定吓一跳的网络接口
+# 添加一条路由指定下一跳的网络接口
 ip route add 192.168.0.0/24 dev eth0
 
 # Change your mac address 

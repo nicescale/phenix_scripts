@@ -1,17 +1,37 @@
 #ss是一个要替代netstat 的命令。
 
-# ss -a 
+# ss -a 显示所有socket包括TCP和UDP
+ss -a
 #
-# ss -l 
-# ss -t
-# ss -u
-# ss -p
+# ss -l  显示所有正在监听的端口
+ss -l
+# ss -t  只显示TCP连接
+ss -t
+# ss -u  只显示UDP连接
+ss -u
+# ss -p  显示那些进程正在使用socket
+ss -p
 #
-# ss -m
+# ss -m  显示socket 的内存使用情况
+ss -m
+<!--
+ss -m 的解释
 # r = sk->sk_rmem_alloc; size of the inbound buffer
 # w = sk->sk_wmem_queued; is the amount of memory used by the socket send buffer queued in the transmit queue and are either not yet sent out or not yet acknowledged
 # f = sk->sk_forward_alloc;  is the forward allocated memory which is the total memory currently available in the socket's quota
 # t = sk->sk_wmem_alloc; size of the outbound buffer
-#
-# ss -s
-#
+-->
+# ss -s 显示socket使用的汇总信息
+ss -s
+<!--
+Total: 877 (kernel 0)
+TCP:   16 (estab 4, closed 1, orphaned 1, synrecv 0, timewait 1/0), ports 0
+
+Transport Total     IP        IPv6
+*     0         -         -        
+RAW   2         2         0        
+UDP   10        7         3        
+TCP   15        12        3        
+INET      27        21        6        
+FRAG      0         0         0      
+-->
