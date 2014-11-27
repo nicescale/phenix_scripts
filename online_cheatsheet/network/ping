@@ -18,3 +18,5 @@ ping -s 1024 baidu.com
 # 显示ping的hop节点
 ping -R 123.125.114.144
 
+# 指定ping出口的地址,-I 后可使用接口或地址
+ping www.baidu.com -I  192.168.100.100
