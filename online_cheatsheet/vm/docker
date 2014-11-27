@@ -1,0 +1,78 @@
+# Docker是一种容器，一种轻量级虚拟机，应用虚拟化。Docker也是DevOps利器，通过Dockerfile标准化了容器，使得容器可以分发并到处运行，解决了不同基础设施之间的异构问题
+
+# 安装初始化docker环境，可参考http://t.cn/Rz5Tga8
+curl -sSL https://get.docker.com/ | sh
+
+# 容器相关操作
+docker create   # 创建一个容器但是不启动它
+docker run      # 创建并启动一个容器
+docker stop     # 停止容器运行
+docker start    # 启动一个停止状态的容器
+docker restart  # 重启一个容器
+docker rm       # 删除一个容器
+docker kill     # 发送信号给容器，默认SIGTERM
+docker attach   # 连接到一个正在运行的容器
+docker wait     # 阻塞到一个容器，直到容器停止运行
+
+# 获取相关信息
+docker ps       # 显示运行的容器或所有容器
+docker inspect  # 深入容器内部获取容器所有信息
+docker logs     # 查看容器的日志(stdout/stderr)
+docker events   # 得到docker服务器的实时的事件
+docker port     # 显示容器的端口映射
+docker top      # 显示容器的进程信息
+docker diff     # 显示容器文件系统的前后变化
+
+# 导出容器
+docker cp       # 从容器里向外拷贝文件或目录
+docker export   # 将容器整个文件系统导出为一个tar包，不带layers、tag等信息
+
+# 执行
+docker exec     # 在容器里执行一个命令
+
+# 镜像操作
+docker images   # 显示所有的镜像列表
+docker import   # 从一个tar包创建一个镜像，往往和export结合使用
+docker build    # 从一个Dockerfile创建一个镜像
+docker commit   # 从一个容器创建一个镜像
+docker rmi      # 删除镜像
+docker load     # 从一个tar包创建一个镜像，和save配合使用
+docker save     # 将一个镜像保存为一个tar包，带layers和tag信息
+docker history  # 显示一个镜像生成的历史
+docker tag      # 为镜像起一个别名
+
+# 镜像仓库(registry)操作
+docker login    # 登录到一个registry
+docker search   # 从registry仓库搜索镜像
+docker pull     # 从仓库下载镜像到本地
+docker push     # 将一个镜像push到registry仓库中
+
+# 名词解释
+Layers 一个带版本的基于分层的文件系统，aufs是一个典型实现
+Links  docker容器之间的连接，用于/etc/hosts和环境变量，方便服务之间的相互连接和访问
+Volumes docker使用Volume卷来解决持久化存储，卷可以被容器方便挂载
+
+# 获取IP地址
+docker inspect id | grep IPAddress | cut -d '"' -f 4
+
+# 获取端口映射
+docker inspect -f '{{range $p, $conf := .NetworkSettings.Ports}} {{$p}} -> {{(index $conf 0).HostPort}} {{end}}' id
+
+# 获取环境变量
+docker exec id env
+
+# 杀掉所有正在运行的容器
+docker kill $(docker ps -q)
+
+# 删除老的容器
+docker ps -a | grep 'weeks ago' | awk '{print $1}' | xargs docker rm
+
+# 删除已经停止的容器
+docker rm `docker ps -a -q`
+
+# 删除dangling镜像
+docker rmi $(docker images -q -f dangling=true)
+
+# 删除所有镜像
+docker rmi $(docker images -q)
+
