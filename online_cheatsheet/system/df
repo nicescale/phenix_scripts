@@ -1,2 +1,55 @@
 # df用来打印出磁盘使用情况, -h表示更适合人阅读的方式
 df -h
+<!--
+文件系统        容量  已用  可用 已用% 挂载点
+/dev/sda5        92G   18G   70G   21% /
+none            4.0K     0  4.0K    0% /sys/fs/cgroup
+udev            2.0G  4.0K  2.0G    1% /dev
+tmpfs           392M  1.3M  391M    1% /run
+none            5.0M  4.0K  5.0M    1% /run/lock
+none            2.0G   22M  1.9G    2% /run/shm
+none            100M   36K  100M    1% /run/user
+/dev/sda1       180M   96M   72M   58% /boot
+-->
+#--total 显示系统总容量 
+df -h  --total
+<!--
+文件系统        容量  已用  可用 已用% 挂载点
+/dev/sda5        92G   18G   70G   21% /
+none            4.0K     0  4.0K    0% /sys/fs/cgroup
+udev            2.0G  4.0K  2.0G    1% /dev
+tmpfs           392M  1.3M  391M    1% /run
+none            5.0M  4.0K  5.0M    1% /run/lock
+none            2.0G   22M  1.9G    2% /run/shm
+none            100M   36K  100M    1% /run/user
+/dev/sda1       180M   96M   72M   58% /boot
+total            97G   18G   74G   20% -
+-->
+# -T 显示文件系统
+df -Th --total
+<!--
+文件系统       类型      容量  已用  可用 已用% 挂载点
+/dev/sda5      ext4       92G   18G   70G   21% /
+none           tmpfs     4.0K     0  4.0K    0% /sys/fs/cgroup
+udev           devtmpfs  2.0G  4.0K  2.0G    1% /dev
+tmpfs          tmpfs     392M  1.3M  391M    1% /run
+none           tmpfs     5.0M  4.0K  5.0M    1% /run/lock
+none           tmpfs     2.0G   22M  1.9G    2% /run/shm
+none           tmpfs     100M   36K  100M    1% /run/user
+/dev/sda1      ext4      180M   96M   72M   58% /boot
+total          -          97G   18G   74G   20% -
+-->
+# -i 显示inodes的使用情况
+df -ihT --total
+<!--
+文件系统       类型     Inode 已用(I) 可用(I) 已用(I)% 挂载点
+/dev/sda5      ext4      5.9M    427K    5.5M       8% /
+none           tmpfs     490K      15    490K       1% /sys/fs/cgroup
+udev           devtmpfs  488K     570    487K       1% /dev
+tmpfs          tmpfs     490K     631    490K       1% /run
+none           tmpfs     490K       6    490K       1% /run/lock
+none           tmpfs     490K     109    490K       1% /run/shm
+none           tmpfs     490K      25    490K       1% /run/user
+/dev/sda1      ext4       48K     313     48K       1% /boot
+total          -         8.8M    429K    8.4M       5% -
+-->

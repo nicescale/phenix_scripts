@@ -1,6 +1,6 @@
 # free 是查看Linux内存使用的命令
 free
-
+<!--
       total   used   free  shared  buffers  cached
 Mem:  1017896=929284+88612  30352    91564  317480
       总内存 = 已用 + 空闲    |        |       |
@@ -11,7 +11,7 @@ Mem:  1017896=929284+88612  30352    91564  317480
                 +--------= used-buffers-cached -- 从程序角度已经使用掉的内存
 Swap: 1048572=179188+869384
       总交换 = 已用 + 空闲
-
+-->
 # free 的单位 -k K -m M -g G
 free -m 
 # 每隔1秒刷新一次free结果
