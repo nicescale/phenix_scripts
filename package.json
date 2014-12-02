@@ -1,0 +1,20 @@
+{
+  "name": "phenix-scripts",
+  "version": "1.0.0",
+  "description": "phenix online cheatsheet",
+  "private": true,
+  "main": "node/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nicescale/phenix_scripts.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nicescale/phenix_scripts/issues"
+  },
+  "homepage": "https://github.com/nicescale/phenix_scripts"
+}
