@@ -2,8 +2,22 @@ var fs = require('fs');
 var path = require('path');
 
 var parse = function(text) {
-  var lines = text.split('\n');
-  return lines;
+  return text.split('\n').filter(function(line) {
+    return line.length > 0;
+  }).map(function(line) {
+    var result = /^\s*#(.*)$/.exec(line);
+    if (result) {
+      return {
+        type: 'text',
+        value: result[1].trim()
+      };
+    } else {
+      return {
+        type: 'code',
+        value: line
+      };
+    }
+  });
 };
 
 var load_cheatsheet_in_dir = function(dir) {
@@ -14,7 +28,7 @@ var load_cheatsheet_in_dir = function(dir) {
     var stats = fs.lstatSync(fullpath);
     if (stats.isFile() || stats.isSymbolicLink()) {
       cheatsheets.push({
-        content: parse(fs.readFileSync(fullpath, 'utf-8')),
+        contents: parse(fs.readFileSync(fullpath, 'utf-8')),
         name: filename
       });
     } else if (stats.isDirectory()) {
