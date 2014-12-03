@@ -25,8 +25,8 @@ var load_cheatsheet_in_dir = function(dir) {
   var cheatsheets = [];
   filenames.forEach(function(filename) {
     var fullpath = path.join(dir, filename);
-    var stats = fs.lstatSync(fullpath);
-    if (stats.isFile() || stats.isSymbolicLink()) {
+    var stats = fs.statSync(fullpath);
+    if (stats.isFile()) {
       cheatsheets.push({
         contents: parse(fs.readFileSync(fullpath, 'utf-8')),
         name: filename
