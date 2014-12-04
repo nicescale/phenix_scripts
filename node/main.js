@@ -1,23 +1,68 @@
 var fs = require('fs');
 var path = require('path');
 
+var Block = function(type, line) {
+  this.type = type;
+  this.lines = [line];
+};
+
+Block.prototype.append = function(block) {
+  this.lines = this.lines.concat(block.lines);
+};
+
+Block.prototype.toJSON = function() {
+  if (this.type === 'empty') {
+    return null;
+  }
+
+  return {
+    type: this.type,
+    lines: this.lines
+  };
+};
+
+var Blocks = function(blocks) {
+  this.blocks = blocks || [];
+};
+
+Blocks.prototype.tail = function() {
+  return this.blocks.length > 0 && this.blocks[this.blocks.length - 1];
+};
+
+Blocks.prototype.append = function(block) {
+  var tail = this.tail();
+  if (tail && tail.type === block.type) {
+    tail.append(block);
+  } else {
+    this.blocks.push(block);
+  }
+};
+
+Blocks.prototype.toJSON = function() {
+  return this.blocks.map(function(block) {
+    return block.toJSON();
+  }).filter(function(json) {
+    return json !== null;
+  });
+};
+
 var parse = function(text) {
-  return text.split('\n').filter(function(line) {
-    return line.length > 0;
-  }).map(function(line) {
+  var blocks = new Blocks();
+
+  text.split('\n').forEach(function(line) {
+    if (/^\s*$/.test(line)) {
+      return blocks.append(new Block('empty', ''));
+    }
+
     var result = /^\s*#(.*)$/.exec(line);
     if (result) {
-      return {
-        type: 'text',
-        value: result[1].trim()
-      };
+      blocks.append(new Block('text', result[1].trim()));
     } else {
-      return {
-        type: 'code',
-        value: line
-      };
+      blocks.append(new Block('code', line));
     }
   });
+
+  return blocks;
 };
 
 var load_cheatsheet_in_dir = function(dir) {
@@ -28,7 +73,7 @@ var load_cheatsheet_in_dir = function(dir) {
     var stats = fs.statSync(fullpath);
     if (stats.isFile()) {
       cheatsheets.push({
-        contents: parse(fs.readFileSync(fullpath, 'utf-8')),
+        blocks: parse(fs.readFileSync(fullpath, 'utf-8')),
         name: filename
       });
     } else if (stats.isDirectory()) {
