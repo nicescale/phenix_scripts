@@ -16,8 +16,13 @@ Block.prototype.toJSON = function() {
   }
 
   lines = this.lines;
-  if (lines[lines.length - 1] === "") {
+
+  while (lines.length > 0 && lines[lines.length - 1] === "") {
     lines.pop();
+  }
+
+  if (this.lines.length === 0) {
+    return null;
   }
 
   return {
@@ -105,3 +110,6 @@ exports.get_cheatsheets = function() {
   return load_cheatsheet_in_dir(
       path.join(__dirname, '../online_cheatsheet'));
 };
+
+//var o = load_cheatsheet_in_dir(path.join(__dirname, '../online_cheatsheet/process'));
+//console.log(JSON.stringify(o));
