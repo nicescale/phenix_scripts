@@ -15,9 +15,14 @@ Block.prototype.toJSON = function() {
     return null;
   }
 
+  lines = this.lines;
+  if (lines[lines.length - 1] === "") {
+    lines.pop();
+  }
+
   return {
     type: this.type,
-    lines: this.lines
+    lines: lines
   };
 };
 
@@ -72,14 +77,9 @@ var parse = function(text) {
     }
     last_blank_line = blank_line;
     last_sharp_line = sharp_line;
-    blank_line = false; 
+    blank_line = false;
     sharp_line = false;
   });
-  var b = blocks.forEach(function(item) {
-    if (b["lines"][b["lines"].length-1] == "") {
-      b["lines"].pop();
-    }
-  })
   return blocks;
 };
 
@@ -105,4 +105,3 @@ exports.get_cheatsheets = function() {
   return load_cheatsheet_in_dir(
       path.join(__dirname, '../online_cheatsheet'));
 };
-
