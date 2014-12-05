@@ -48,18 +48,32 @@ Blocks.prototype.toJSON = function() {
 
 var parse = function(text) {
   var blocks = new Blocks();
+  var blank_line = false;
+  var sharp_line = false;
+  var last_blank_line = false;
+  var last_sharp_line = false;
 
   text.split('\n').forEach(function(line) {
     if (/^\s*$/.test(line)) {
-      return blocks.append(new Block('empty', ''));
+      blank_line = true;
+      //return blocks.append(new Block('empty', ''));
     }
 
     var result = /^\s*#(.*)$/.exec(line);
     if (result) {
+      sharp_line = true;
       blocks.append(new Block('text', result[1].trim()));
     } else {
-      blocks.append(new Block('code', line));
+      if (last_sharp_line && blank_line) {
+        blocks.append(new Block('text', ''));
+      } else {
+        blocks.append(new Block('code', line));
+      }
     }
+    last_blank_line = blank_line;
+    last_sharp_line = sharp_line;
+    blank_line = false; 
+    sharp_line = false;
   });
 
   return blocks;
@@ -87,3 +101,4 @@ exports.get_cheatsheets = function() {
   return load_cheatsheet_in_dir(
       path.join(__dirname, '../online_cheatsheet'));
 };
+
