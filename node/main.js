@@ -75,7 +75,11 @@ var parse = function(text) {
     blank_line = false; 
     sharp_line = false;
   });
-
+  var b = blocks.forEach(function(item) {
+    if (b["lines"][b["lines"].length-1] == "") {
+      b["lines"].pop();
+    }
+  })
   return blocks;
 };
 
