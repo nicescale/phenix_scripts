@@ -1,4 +1,5 @@
 # apt-get是Debian系Linux下的软件包依赖管理工具
+
 # 环境变量 DEBIAN_FRONTEND=noninteractive 控制apt-get命令是否进入交互式
 
 # 从远端更新本地包的列表和索引

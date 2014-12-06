@@ -14,5 +14,3 @@ nc -lU /var/tmp/dsocket
 
 # 使用socks代理连接host.example.com
 nc -x10.2.3.4:8080 -Xconnect host.example.com 42
-
-

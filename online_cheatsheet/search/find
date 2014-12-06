@@ -24,13 +24,13 @@ find . -nouser root # 找出系统中非root属主的文件
 
 # 根据文件权限查找文件
 find . -perm 555  # 找出系统中权限为555的所有文件
-find . -perm u+r,u+x,g+r,g+x,a+r,a+x  ## see above
-find . -perm -222  ## 找出系统中所有在o/g/a为可写的文件，o/g/a三位必须同时满足
-find . -perm -u+w,g+w,a+w  ## see above
-find . -perm /222  ## 找出系统中对任一用户都可写的文件，o/g/a三位满足其一即可
-find . -perm /u+w,g+w,a+w ## see above
-find . -perm /220  ## 同上，但对a位不做要求
-find . -perm /u+w,g+w  ## see above
+find . -perm u+r,u+x,g+r,g+x,a+r,a+x  # see above
+find . -perm -222  # 找出系统中所有在o/g/a为可写的文件，o/g/a三位必须同时满足
+find . -perm -u+w,g+w,a+w  # see above
+find . -perm /222  # 找出系统中对任一用户都可写的文件，o/g/a三位满足其一即可
+find . -perm /u+w,g+w,a+w # see above
+find . -perm /220  # 同上，但对a位不做要求
+find . -perm /u+w,g+w  # see above
 
 # 根据文件时间查找文件
 # amin cmin mmin atime ctime mtime anewer cnewer newer
@@ -46,7 +46,7 @@ find . -samefile /tmp/a.txt  # find links related to /tmp/a.txt
 find . -inum 255  # inode number
 find . -links 255 # hard links number
 
-# 条件支持与(-a)、或(-o)、非(!)
+# 条件支持, 与(-a)、或(-o)、非(!)
 
 # 找出所有权限是777的文本文件
 find . -name *.txt -a -perm 777
@@ -60,13 +60,13 @@ find . ! -type f -a -u root
 # 找出others可写的regular files，并打印到stdout,每个文件后带有newline
 find . -type f -perm /002 -print
 
-## 同上，但将文件名打印到了文件中
+# 同上，但将文件名打印到了文件中
 find . -type f -perm /002 -fprint /tmp/find.log  
 
-## 找出小于4k的文件，并打印到stdout,但文件名后无newline
+# 找出小于4k的文件，并打印到stdout,但文件名后无newline
 find . -size -4k -print0 
 
-## 同上，但将文件名打印到文件
+# 同上，但将文件名打印到文件
 find . -size -4k -fprint0 /tmp/find1.log 
 
 # ls动作类似于命令ls -l，只是ls动作多打印了两列：inode number 和 block numbers(k)
@@ -102,7 +102,7 @@ find . -type d -empty -exec rmdir {} \;
 # 找出所有指向gnu.linux文件的hard links，xdev表示不夸文件系统
 find . -xdev -samefile /tmp/gnu.linux
 
-## 深度优先，最底层的文件先行处理
+# 深度优先，最底层的文件先行处理
 find . -depth -name *.txt -delete
 
 # 除了.git目录，查找本目录的其他所有css文件

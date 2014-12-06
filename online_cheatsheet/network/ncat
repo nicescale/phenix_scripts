@@ -1,30 +1,31 @@
-# Connect mode (ncat is client) | default port is 31337
+# 连接到host的port端口,默认31337
 ncat <host> [<port>]
 
-# Listen mode (ncat is server) | default port is 31337
+# 监听在某个IP的某个端口上
 ncat -l [<host>] [<port>]
 
-# Transfer file (closes after one transfer)
+# 传输文件
 ncat -l [<host>] [<port>] < file
+cat file | ncat -l host port
 
-# Transfer file (stays open for multiple transfers)
+# 传输多次而不中断连接
 ncat -l --keep-open [<host>] [<port>] < file
 
-# Receive file
+# 接收文件
 ncat [<host>] [<port>] > file
 
-# Brokering | allows for multiple clients to connect
+# 充当中继，允许多个客户端连接
 ncat -l --broker [<host>] [<port>]
 
-# Listen with SSL | many options, use ncat --help for full list
+# ssl连接
 ncat -l --ssl [<host>] [<port>]
 
-# Access control
+# 访问控制，设定允许哪些ip或拒绝哪些ip访问ncat监听的服务
 ncat -l --allow <ip>
 ncat -l --deny <ip>
 
-# Proxying
+# 指定代理去访问host:port
 ncat --proxy <proxyhost>[:<proxyport>] --proxy-type {http | socks4} <host>[<port>]
 
-# Chat server | can use brokering for multi-user chat
+# 聊天服务器
 ncat -l --chat [<host>] [<port>]

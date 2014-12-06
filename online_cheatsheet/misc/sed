@@ -62,12 +62,11 @@ cat file
 
 4 baby dudy
 
-cat file | 'N;s/\n//'
+cat file | sed 'N;s/\n//'
 1 surendra audi
 2 kumar nudi
 3 mouni surendra
 4 baby dudy
 
 # 删除换行符
-sed ':a;N;$!ba;s/\n//g'  file.txt
-
+sed ':a;N;$!ba;s/\n//g' file.txt

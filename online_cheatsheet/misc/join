@@ -1,12 +1,14 @@
 # join也是一个合并列的工具，但是join是根据相同的列进行合并
-$ cat employee.txt
+cat employee.txt
+输出:
 100     Emma    Thomas
 200     Alex    Jason
 300     Madison Randy
 400     Sanjay  Gupta
 500     Nisha   Singh
 
-$ cat bonus.txt
+cat bonus.txt
+输出:
 $5,000  100
 $5,500  200
 $6,000  300
@@ -14,7 +16,8 @@ $7,000  400
 $9,500  500
 
 # 第1个文件的第1列和第2个文件的第2列相同
-$ join -1 1 -2 2 employee.txt bonus.txt
+join -1 1 -2 2 employee.txt bonus.txt
+输出:
 100 Emma Thomas $5,000
 200 Alex Jason $5,500
 300 Madison Randy $6,000

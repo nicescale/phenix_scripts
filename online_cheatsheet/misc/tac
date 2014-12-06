@@ -1,9 +1,10 @@
 # tac是一个将文件按行颠倒的工具，最后一行变为第一行
-$ cat demo.txt
+cat demo.txt
 a
 b
 c
-$ tac demo.txt
+
+tac demo.txt
 c
 b
 a

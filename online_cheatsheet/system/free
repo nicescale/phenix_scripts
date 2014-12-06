@@ -14,5 +14,6 @@ Swap: 1048572=179188+869384
 
 # free 的单位 -k K -m M -g G
 free -m 
+
 # 每隔1秒刷新一次free结果
 free -s 1

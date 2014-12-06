@@ -24,7 +24,6 @@ grep -v -e "case" -e "CASE" demo_text
 # 统计次数, -c
 grep -c "go" demo_text
 
-
 # 仅仅显示匹配到的文件名字
 grep -l this demo_*
 
@@ -33,4 +32,3 @@ grep -n "go" demo_text
 
 # 找出httpd进程
 ps aux | grep '[h]ttpd'
-

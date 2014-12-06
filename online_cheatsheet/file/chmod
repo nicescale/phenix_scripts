@@ -1,4 +1,4 @@
-# 文件权限分为r(读)、w(写)、x(执行)
+# 文件权限分为r(读4)、w(写2)、x(执行1)，分别作用于u(user)、g(group)、o(anothers).
 
 # 所有用户都具有执行权限
 chmod a+x myscript.sh

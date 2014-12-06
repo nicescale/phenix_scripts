@@ -1,6 +1,6 @@
 # Docker是一种容器，一种轻量级虚拟机，应用虚拟化。Docker也是DevOps利器，通过Dockerfile标准化了容器，使得容器可以分发并到处运行，解决了不同基础设施之间的异构问题
 
-# 安装初始化docker环境，可参考http://t.cn/Rz5Tga8
+# 安装初始化docker环境，可参考 http://t.cn/Rz5Tga8
 curl -sSL https://get.docker.com/ | sh
 
 # 容器相关操作
@@ -48,9 +48,9 @@ docker pull     # 从仓库下载镜像到本地
 docker push     # 将一个镜像push到registry仓库中
 
 # 名词解释
-Layers 一个带版本的基于分层的文件系统，aufs是一个典型实现
-Links  docker容器之间的连接，用于/etc/hosts和环境变量，方便服务之间的相互连接和访问
-Volumes docker使用Volume卷来解决持久化存储，卷可以被容器方便挂载
+Layers : 一个带版本的基于分层的文件系统，aufs是一个典型实现
+Links  : docker容器之间的连接，用于/etc/hosts和环境变量，方便服务之间的相互连接和访问
+Volumes: docker使用Volume卷来解决持久化存储，卷方便同一机器上多个容器共享挂载
 
 # 获取IP地址
 docker inspect id | grep IPAddress | cut -d '"' -f 4

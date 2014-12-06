@@ -28,7 +28,8 @@ nicescale.com.    600 IN  NS  f1g1ns2.dnspod.net.
 ;; WHEN: Wed Nov  5 18:06:19 2014
 ;; MSG SIZE  rcvd: 111
 
-# dig的输出分为4个部分:
+dig的输出分为4个部分:
+---------------------
 HEADER: 显示dig版本，命令行选项以及其他一些信息
 QUESTION: 这里显示问题，即我们刚才询问了nicescale.com的A记录
 ANSWER: 答案，nicescale.com的A记录指向117.121.26.243

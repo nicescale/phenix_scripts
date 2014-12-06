@@ -1,7 +1,7 @@
-# awk是
+# awk是一种优良的文本处理工具,它是unix下功能最强大的数据处理引擎之一。
 
 # 样例文件如下
-$ cat db.txt
+cat db.txt
 Ip,Henry 29 32 23 27
 Frank,Joe 26 29 22 28
 Gill,Marry 25 30 20 25
@@ -14,21 +14,21 @@ Low,juila 22 21 19 18
 Joe,Sarah 19 21 18 20
 
 # 搜索Dow并打印出来
-$ awk '/Dow/' db.txt
-$ grep Dow db.txt
-$ sed -n '/Dow/p' db.txt
+awk '/Dow/' db.txt
+grep Dow db.txt
+sed -n '/Dow/p' db.txt
 输出:
 Dow,Juila 24 29 20 20
 
 # 搜索Juila或juila
-$ awk '/[Jj]uila/' db.txt
-$ grep [Jj]uila db.txt
+awk '/[Jj]uila/' db.txt
+grep [Jj]uila db.txt
 输出:
 Dow,Juila 24 29 20 20
 Low,juila 22 21 19 18
 
 # 打印第2列
-$ awk '{print $2}' db.txt
+awk '{print $2}' db.txt
 输出:
 29
 26
@@ -42,7 +42,7 @@ $ awk '{print $2}' db.txt
 19
 
 # 同时打印多个列
-$ awk '{print $2,$4}' db.txt
+awk '{print $2,$4}' db.txt
 输出:
 29 23
 26 22
@@ -56,7 +56,7 @@ $ awk '{print $2,$4}' db.txt
 19 18
 
 # 打印2个列，但以tab分隔
-$ awk '{print $2,"\t",$4}' db.txt 
+awk '{print $2,"\t",$4}' db.txt 
 输出:
 29   23
 26   22
@@ -70,12 +70,12 @@ $ awk '{print $2,"\t",$4}' db.txt
 19   18
 
 # 搜索Chow并打印第3列
-$ awk '/Chow/{print $3}' db.txt
+awk '/Chow/{print $3}' db.txt
 输出:
 29
 
 # 打印从Frank到Low之间所有行的第4列
-$ awk '/Frank/,/Low/{print $4}' db.txt
+awk '/Frank/,/Low/{print $4}' db.txt
 输出:
 22
 20
@@ -87,7 +87,7 @@ $ awk '/Frank/,/Low/{print $4}' db.txt
 19
 
 # 打印第5行后面的内容
-$ awk 'NR>5' db.txt
+awk 'NR>5' db.txt
 输出:
 Dible,Liz 22 30 20 22
 Warn,Suzanne 23 29 19 23
@@ -103,7 +103,7 @@ Chow,Samuel 23  29  19  25
 Dible,Liz 22  30  20  22
 
 # 查找第三列中含有29的行
-$ awk '$3 ~/29/' db.txt
+awk '$3 ~/29/' db.txt
 输出:
 Frank,Joe   26  29  22  28
 Chow,Samuel 23  29  19  25
@@ -111,7 +111,7 @@ Warn,Suzanne  23  29  19  23
 Dow,Juila 24  29  20  20
 
 # 查找第三列中大于29的行并打印第五列
-$ awk '$3 >29 {print $5}' db.txt
+awk '$3 >29 {print $5}' db.txt
 输出:
 27
 25
@@ -119,7 +119,7 @@ $ awk '$3 >29 {print $5}' db.txt
 22
 
 # 打印第四行后面的第三列
-$ awk '(NR>4){print $3}' db.txt
+awk '(NR>4){print $3}' db.txt
 输出:
 29
 30
@@ -129,7 +129,7 @@ $ awk '(NR>4){print $3}' db.txt
 21
 
 # 在开头输出一行提示
-$ awk 'BEGIN{print "This is the filtered output"}(NR>4){print $3}' db.txt
+awk 'BEGIN{print "This is the filtered output"}(NR>4){print $3}' db.txt
 输出:
 This is the filtered output
 29
@@ -140,8 +140,8 @@ This is the filtered output
 21
 
 # 同上，但是在末尾输出
-$ awk '(NR>4){print $3}END{print "This is the end of filter output"}' db.txt
-输出:
+awk '(NR>4){print $3}END{print "This is the end of filter output"}' db.txt
+输出：
 29
 30
 29

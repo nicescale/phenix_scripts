@@ -19,6 +19,7 @@ $ echo "This is for testing" | tr [:space:] '\t'
 # 删除特定字符
 $ echo NiceScaleing | tr -d 'ing'
 NiceScale
+
 $ echo "my username is 432234" | tr -d [:digit:]
 my username is
 

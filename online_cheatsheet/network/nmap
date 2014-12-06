@@ -1,33 +1,33 @@
-# Single target scan:
+# 扫描单个目标
 nmap [target]
 
-# Scan from a list of targets:
+# 扫描多个目标，目标保存在list.txt
 nmap -iL [list.txt]
 
-# iPv6:
+# 扫描ipv6
 nmap -6 [target]
 
-# OS detection:
+# 检测操作系统
 nmap -O --osscan_guess [target]
 
-# Save output to text file:
+# 将扫描结果保存到output.txt文件里
 nmap -oN [output.txt] [target]
 
-# Save output to xml file:
+# 将扫描结果保存为xml
 nmap -oX [output.xml] [target]
 
-# Scan a specific port:
+# 扫描特定端口
 nmap -source-port [port] [target]
 
-# Do an aggressive scan:
+# 聚合扫描
 nmap -A [target]
 
-# Speedup your scan:
-# -n => disable ReverseDNS
+# 加快扫描的方法:
+# -n => 禁止反向域名解析
 # --min-rate=X => min 300 packets / sec
 nmap -T5 --min-parallelism=50 -n --min-rate=300 [target]
 
-# Traceroute:
+# Traceroute扫描
 nmap -traceroute [target]
 
 # Ping scan only: -sP
@@ -38,6 +38,7 @@ nmap -traceroute [target]
 # ARP ping:       -PR
 
 # Example: Ping scan all machines on a class C network
+# ping整个C网段
 nmap -sP 192.168.0.0/24
 
 # Force TCP scan: -sT

@@ -1,26 +1,7 @@
-# Update every <interval> samples:
-top -i <interval>
+# top是经典的unix分析系统性能的工具，可以查看cpu、内存、进程等信息
 
-# Set the delay between updates to <delay> seconds:
-top -s <delay>
+# 每隔2秒更新一次显示
+top -d 2
 
-# Set event counting to accumulative mode:
-top -a
-
-# Set event counting to delta mode:
-top -d
-
-# Set event counting to absolute mode:
-top -e
-
-# Do not calculate statistics on shared libraries, also known as frameworks:
-top -F
-
-# Calculate statistics on shared libraries, also known as frameworks (default):
-top -f
-
-# Print command line usage information and exit:
-top -h
-
-# Order the display by sorting on <key> in descending order
-top -o <key>
+# 指定top取样次数,最后退出
+top -n 1
