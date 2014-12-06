@@ -1,67 +1,55 @@
-# TCPDump is a packet analyzer. It allows the user to intercept and display TCP/IP
-# and other packets being transmitted or received over a network. (cf Wikipedia).
-# Note: 173.194.40.120 => google.com
+# tcpdump是经典unix抓包工具，所有unix都有支持，用于各种用途
 
-# Intercepts all packets on eth0
-tcpdump -i eth0
+# 抓取eth0上的5个包
+# -s选项指定包长度，默认68字节，0表示整个包
+# -c选项是抓取多少包退出
+# -tttt选项是显示时间时可以阅读
+tcpdump -i eth0 -s 0 -c 5 -tttt
 
-# Intercepts all packets from/to 173.194.40.120
+# 抓取所有173.194.40.120的包，包括进出两个方向
 tcpdump host 173.194.40.120
 
-# Intercepts all packets on all interfaces from / to 173.194.40.120 port 80
-# -nn => Disables name resolution for IP addresses and port numbers.
+# 抓取所有接口且和173.194.40.120并且端口是80有关的包
+# -nn表示不要将ip和端口翻译为域名和协议号
 tcpdump -nn -i any host 173.194.40.120 and port 80
 
-# Make a grep on tcpdump (ASCII)
-# -A  => Show only ASCII in packets.
-# -s0 => By default, tcpdump only captures 68 bytes.
-tcpdump -i -A any host 173.194.40.120 and port 80 | grep 'User-Agent'
+# 同上，但显示ascii字符
+tcpdump -A -i any host 173.194.40.120 and port 80 | grep 'User-Agent'
 
-# With ngrep
-# -d eth0 => To force eth0 (else ngrep work on all interfaces)
-# -s0 => force ngrep to look at the entire packet. (Default snaplen: 65536 bytes)
-ngrep 'User-Agent' host 173.194.40.120 and port 80
 
-# Intercepts all packets on all interfaces from / to 8.8.8.8 or 173.194.40.127 on port 80
+# 抓取8.8.8.8或173.194.40.127且端口为80的所有包
 tcpdump 'host ( 8.8.8.8 or 173.194.40.127 ) and port 80' -i any
 
-# Intercepts all packets SYN and FIN of each TCP session.
+# 抓取TCP会话的SYN和FIN包
 tcpdump 'tcp[tcpflags] & (tcp-syn|tcp-fin) != 0'
 
 # To display SYN and FIN packets of each TCP session to a host that is not on our network
-tcpdump 'tcp[tcpflags] & (tcp-syn|tcp-fin) != 0 and not src and dst net local_addr'
+tcpdump 'tcp[tcpflags] & (tcp-syn|tcp-fin) != 0 and not src and dst net 192.168.1.0/24'
 
-# To display all IPv4 HTTP packets that come or arrive on port 80 and that contain only data (no SYN, FIN no, no packet containing an ACK)
+# 显示所有http数据包
 tcpdump 'tcp port 80 and (((ip[2:2] - ((ip[0]&0xf)<<2)) - ((tcp[12]&0xf0)>>2)) != 0)'
 
-# Saving captured data
+# 保存cap包
 tcpdump -w file.cap
 
-# Reading from capture file
+# 从cap包里读取
 tcpdump -r file.cap
 
-# Show content in hexa
-# Change -x to -xx => show extra header (ethernet).
+# 显示16进制
 tcpdump -x
 
-# Show content in hexa and ASCII
-# Change -X to -XX => show extra header (ethernet).
+# 以16进制和ASCII显示内容
 tcpdump -X
 
-# Note on packet maching:
-# Port matching:
+# 端口匹配:
 # - portrange 22-23
 # - not port 22
 # - port ssh
 # - dst port 22
 # - src port 22
-#
-# Host matching:
+# host匹配:
 # - dst host 8.8.8.8
 # - not dst host 8.8.8.8
 # - src net 67.207.148.0 mask 255.255.255.0
 # - src net 67.207.148.0/24
-
-#. Display Captured Packets in HEX and ASCII
-#The following command with option -XX capture the data of each packet, including its link level header in HEX and ASCII format.
-tcpdump -XX -i eth0
+tcpdump -tttt -s0 -XX -i eth0 'tcp host 192.168.1.99 and port 3306'

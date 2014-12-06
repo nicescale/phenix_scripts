@@ -1,3 +1,5 @@
+# ncat和nc很相像，但ncat是nmap包里的工具
+
 # 连接到host的port端口,默认31337
 ncat <host> [<port>]
 

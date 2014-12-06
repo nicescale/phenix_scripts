@@ -1,24 +1,21 @@
-# To view which users/processes are listening to which ports:
+# netstat是经典unix命令，用于网络相关的查看和管理
+
+# 列出主动监听(-l)的进程，包括程序名(-p)和监听端口
 sudo netstat -lnptu
 
-# To view routing table (use -n flag to disable DNS lookups):
-netstat -r
+# 查看路由表，类似route命令输出
+# ip route命令同样可以查看路由表
+netstat -rn
 
-# Which process is listening to port <port>
-netstat -pln | grep <port> | awk '{print $NF}'
+# 查看网络接口数据包统计状况
+# ip -s link一样的效果
+netstat -i
 
-# Fast display of ipv4 tcp listening programs
-sudo netstat -vtlnp --listening -4
+# 查看哪个进程监听在8081端口上
+netstat -pln | grep -w 8081 | awk '{print $NF}'
 
-# WARNING ! netstat is deprecated.
-# Replace it by:
+# 查看mysql服务监听在哪个端口上
+netstat -pln | grep -w mysqld | awk '{print $4}'
+
+# 现在的发行版一般都支持ss
 ss
-
-# For netstat-r
-ip route
-
-# For netstat -i
-ip -s link
-
-# For netstat-g
-ip maddr

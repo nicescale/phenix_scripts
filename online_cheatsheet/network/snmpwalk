@@ -1,5 +1,5 @@
-# To retrieve all of the variables under system for host zeus
-snmpwalk -Os -c public -v 1 zeus system
+# 获取主机192.168.1.99系统的所有变量
+snmpwalk -Os -c public -v 1 192.168.1.99 system
 
-# To retrieve the scalar values, but omit the sysORTable for host zeus
-snmpwalk -Os -c public -v 1 -CE sysORTable zeus system
+# 获取主机192.168.1.99系统的所有标量，除了sysORTable
+snmpwalk -Os -c public -v 1 -CE sysORTable 192.168.1.99 system

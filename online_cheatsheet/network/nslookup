@@ -3,7 +3,7 @@
 # 查询一个域名的ip
 nslookup nicescale.com
 
-# 输出如下
+输出
 Server:   127.0.0.1
 Address:  127.0.0.1#53
 

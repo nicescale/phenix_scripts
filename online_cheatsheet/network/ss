@@ -1,17 +1,18 @@
-#ss是一个要替代netstat 的命令。
+# ss是一个要替代netstat的命令，其功能为netstat子集. Linux发行版一般都自带, 其大部分选项的含义和netstat一致
+# l 监听, t tcp, u udp, p 程序名
+# a 所有, n 不反向解析端口或ip
 
-# ss -a 
-#
-# ss -l 
-# ss -t
-# ss -u
-# ss -p
-#
-# ss -m
-# r = sk->sk_rmem_alloc; size of the inbound buffer
-# w = sk->sk_wmem_queued; is the amount of memory used by the socket send buffer queued in the transmit queue and are either not yet sent out or not yet acknowledged
-# f = sk->sk_forward_alloc;  is the forward allocated memory which is the total memory currently available in the socket's quota
-# t = sk->sk_wmem_alloc; size of the outbound buffer
-#
-# ss -s
-#
+# 显示所有连接(包括监听和非监听)
+ss -a 
+
+# 只显示监听的连接
+ss -l 
+
+# 只显示tcp连接
+ss -t
+
+# 只显示udp连接
+ss -u
+
+# 显示程序名
+ss -p
