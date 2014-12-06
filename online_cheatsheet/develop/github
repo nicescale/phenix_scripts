@@ -31,37 +31,36 @@ $ git pull-request # 就刚才topic分支提交一个pull request
 # 如果你是一个开源项目的维护者
 # ----------------------------
 
-# fetch from multiple trusted forks, even if they don't yet exist as remotes
+# 抓取多个远端分支
 $ git fetch mislav,cehoffman
 → git remote add mislav git://github.com/mislav/hub.git
 → git remote add cehoffman git://github.com/cehoffman/hub.git
 → git fetch --multiple mislav cehoffman
 
-# check out a pull request for review
+# 抓取某个pull request的修改到本地，并创建新分支
 $ git checkout https://github.com/github/hub/pull/134
-→ (creates a new branch with the contents of the pull request)
 
-# directly apply all commits from a pull request to the current branch
+# 抓取某个pull request的全部修改并应用到当前分支
 $ git am -3 https://github.com/github/hub/pull/134
 
-# cherry-pick a GitHub URL
+# 复制一个github上的commit并在当前分支做一次完全一样的提交
 $ git cherry-pick https://github.com/xoebus/hub/commit/177eeb8
 → git remote add xoebus git://github.com/xoebus/hub.git
 → git fetch xoebus
 → git cherry-pick 177eeb8
 
-# `am` can be better than cherry-pick since it doesn't create a remote
+# 也可以使用git am，它和cherry-pick不同的是，不会创建一个新的远端仓库
 $ git am https://github.com/xoebus/hub/commit/177eeb8
 
-# open the GitHub compare view between two releases
+# 对比两个tag之间的修改
 $ git compare v0.9..v1.0
 
-# put compare URL for a topic branch to clipboard
+# 把 github 的对比页面链接复制到剪贴板
 $ git compare -u feature | pbcopy
 
 # 为一个新项目创建仓库
 $ git init
 $ git add . && git commit -m "It begins."
 $ git create -d "My new thing"
-→ (creates a new project on GitHub with the name of current directory)
+→ (在 github 的远端仓库上创建一个同名的分支)
 $ git push origin master

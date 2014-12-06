@@ -1,4 +1,4 @@
-# 设置你的git帐号, push/pull会用做认证
+# 设置你的git帐号，每次git提交时会随更新内容一起纳入历史记录
 git config --global user.name "John Doe"
 git config --global user.email johndoe@example.com
 
@@ -17,22 +17,22 @@ git commit -m "Your commit message"
 # 编辑上一次提交的message
 git commit --amend
 
-# To removed staged and working directory changes
+# 重置工作目录到最新的一次commit(HEAD)，未提交的修改将直接被删除
 git reset --hard
 
 # 删除未跟踪的文件(就是文件或目录没有add过)
 git clean -f -d
 
-# 将代码push到master分支
+# 将代码push到远端仓库origin的master分支
 git push origin master
 
 # push到一个特定的仓库
 git push git@github.com:username/project.git
 
-# 删除一个分支
+# 强制删除一个分支
 git branch -D branch_name
 
-# 查看谁提交过filename，以及具体的修改
+# 查看指定文件每一行的详细修改信息: 包括SHA串, 日期, 作者
 git blame filename
 
 # 同步一个git仓库到本地
