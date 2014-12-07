@@ -157,10 +157,10 @@ printf '1\n2\n3\n' | awk '{ sum += $1} END {print sum}'
 awk -F ':' '$NF ~ /\/bin\/sh/ { n++ }; END { print n }' /etc/passwd
 
 # 统计uid为偶数的用户
-awk 'NR % 2 == 0' /etc/passwd
+awk -F ':' '$3 % 2 == 0' /etc/passwd
 
 # uid和gid相同的用户
-awk -F ':' '$3==$4' passwd.txt
+awk -F ':' '$3==$4' /etc/passwd
 
 # 颠倒每一行显示
 awk 'BEGIN{ORS="";}{ for (i=NF; i>0; i--) print $i," "; print "\n"; }' db.txt
